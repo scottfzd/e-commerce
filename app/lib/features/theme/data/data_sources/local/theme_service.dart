@@ -19,7 +19,7 @@ class ThemeServiceImpl extends ThemeService {
 
   @override
   Future<Either> setTheme({required bool isDarkTheme}) async {
-    sl<SharedPreferencesAsync>().setBool('isDarkTheme', isDarkTheme);
+    await sl<SharedPreferences>().setBool('isDarkTheme', isDarkTheme);
     return const Right(true);
   }
 }

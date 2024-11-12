@@ -1,4 +1,4 @@
-import 'package:app/features/theme/presentation/bloc/theme_state_cubit.dart';
+import 'package:app/features/theme/presentation/bloc/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
