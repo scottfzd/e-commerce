@@ -17,8 +17,8 @@ class ServerFailure extends Failure {
 }
 
 /// Cancel token failure
-class CancelTokenFailure extends Failure {
+class TimeoutFailure extends Failure {
   final int? statusCode;
 
-  const CancelTokenFailure(super.errorMessage, this.statusCode);
+  const TimeoutFailure(super.errorMessage, this.statusCode);
 }

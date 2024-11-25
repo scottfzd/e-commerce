@@ -1,5 +1,8 @@
 import 'package:app/core/styles/app_colors.dart';
 import 'package:app/core/styles/app_theme.dart';
+import 'package:app/features/auth/presentation/bloc/auth_cubit.dart';
+import 'package:app/features/auth/presentation/bloc/auth_state.dart';
+import 'package:app/features/auth/presentation/pages/login_page.dart';
 import 'package:app/features/home/presentation/pages/home_page.dart';
 import 'package:app/features/theme/presentation/bloc/theme_cubit.dart';
 import 'package:app/service_locator.dart';
@@ -25,6 +28,9 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               ThemeCubit(themeRepository: sl())..getCurrentTheme(),
         ),
+        BlocProvider(
+          create: (context) => AuthCubit()..appStarted(),
+        ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
@@ -33,7 +39,21 @@ class MyApp extends StatelessWidget {
             darkTheme: AppTheme(AppColors.darkColors).getTheme(),
             themeMode: themeState.themeMode,
             debugShowCheckedModeBanner: false,
-            home: const HomePage(),
+            home: BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, authState) {
+                if (authState is Authenticated) {
+                  return const HomePage();
+                } else if (authState is UnAuthenticated) {
+                  return LoginPage();
+                } else {
+                  return const Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
+            ),
           );
         },
       ),
