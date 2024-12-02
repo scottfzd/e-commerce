@@ -10,7 +10,7 @@ class RegisterParams {
   final String? city;
   final String? country;
 
-  RegisterParams({
+  const RegisterParams({
     required this.email,
     required this.password,
     required this.passwordConfirmation,

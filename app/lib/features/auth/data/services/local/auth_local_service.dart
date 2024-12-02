@@ -11,7 +11,7 @@ abstract class AuthLocalService {
 class AuthLocalServiceImpl extends AuthLocalService {
   @override
   Future<Either<Failure, bool>> isLoggedIn() async {
-    var token = await sl<FlutterSecureStorage>().read(key: "token");
+    var token = await sl<FlutterSecureStorage>().read(key: 'token');
     if (token == null || token.isEmpty) {
       return const Right(false);
     } else {

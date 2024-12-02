@@ -1,6 +1,7 @@
 import 'package:app/core/network/dio_client.dart';
 import 'package:app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:app/features/auth/data/services/local/auth_local_service.dart';
+import 'package:app/features/auth/data/services/remote/auth_api_service.dart';
 import 'package:app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:app/features/auth/domain/usecases/get_user_usecase.dart';
 import 'package:app/features/auth/domain/usecases/is_logged_in_usecase.dart';
@@ -27,6 +28,7 @@ void setupServiceLocator() {
   // Services
   sl.registerSingleton<ThemeService>(ThemeServiceImpl());
   sl.registerSingleton<AuthLocalService>(AuthLocalServiceImpl());
+  sl.registerSingleton<AuthRemoteService>(AuthRemoteServiceImpl());
 
   // Repositories
   sl.registerSingleton<ThemeRepository>(ThemeRepositoryImpl());
@@ -34,7 +36,8 @@ void setupServiceLocator() {
 
   // Use cases
   sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
-  sl.registerSingleton<LoginUsecase>(LoginUsecase());
+  sl.registerSingleton<LoginUsecase>(
+      LoginUsecase(authRepository: sl<AuthRepository>()));
   sl.registerSingleton<LogoutUsecase>(LogoutUsecase());
   sl.registerSingleton<RegisterUsecase>(RegisterUsecase());
   sl.registerSingleton<GetUserUsecase>(GetUserUsecase());

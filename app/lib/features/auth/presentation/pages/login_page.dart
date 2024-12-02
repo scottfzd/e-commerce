@@ -1,6 +1,9 @@
 import 'package:app/features/auth/data/models/login_params.dart';
+import 'package:app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:app/features/auth/presentation/pages/register_page.dart';
+import 'package:app/features/home/presentation/pages/home_page.dart';
+import 'package:app/service_locator.dart';
 import 'package:app/shared/bloc/button_cubit.dart';
 import 'package:app/shared/bloc/button_state.dart';
 import 'package:app/shared/widgets/basic_button.dart';
@@ -28,6 +31,12 @@ class LoginPage extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.errorMessage)),
               );
+            } else if (state is ButtonSuccess) {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomePage(),
+                  ));
             }
           },
           child: SafeArea(child: _loginForm(context)),
@@ -62,7 +71,8 @@ class LoginPage extends StatelessWidget {
                 title: 'Login',
                 onPressed: () {
                   context.read<ButtonCubit>().execute(
-                        usecase: LoginUsecase(),
+                        usecase:
+                            LoginUsecase(authRepository: sl<AuthRepository>()),
                         params: LoginParams(
                           email: _emailCon.text,
                           password: _passwordCon.text,

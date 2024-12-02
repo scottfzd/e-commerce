@@ -1,5 +1,6 @@
 import 'package:app/core/error/failures.dart';
 import 'package:app/features/auth/data/models/login_params.dart';
+import 'package:app/features/auth/data/models/login_response.dart';
 import 'package:app/features/auth/data/models/register_params.dart';
 import 'package:app/features/auth/data/services/local/auth_local_service.dart';
 import 'package:app/features/auth/data/services/remote/auth_api_service.dart';
@@ -17,12 +18,12 @@ class AuthRepositoryImpl extends AuthRepository {
     return result.fold((error) {
       return Left(error);
     }, (data) async {
-      Response response = data;
+      LoginResponse loginResponse = data;
       sl<FlutterSecureStorage>()
-          .write(key: 'token', value: response.data['token']);
+          .write(key: 'token', value: loginResponse.token);
       sl<FlutterSecureStorage>()
-          .write(key: 'refresh_token', value: response.data['refresh_token']);
-      return Right(response.data);
+          .write(key: 'refresh_token', value: loginResponse.refreshToken);
+      return Right(loginResponse.user);
     });
   }
 

@@ -8,6 +8,7 @@ import 'package:app/features/theme/presentation/bloc/theme_cubit.dart';
 import 'package:app/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,7 @@ void main() {
   sl.allReady().then((_) {
     runApp(const MyApp());
   });
+  sl<FlutterSecureStorage>().deleteAll(); // Clear all data for testing
 }
 
 class MyApp extends StatelessWidget {

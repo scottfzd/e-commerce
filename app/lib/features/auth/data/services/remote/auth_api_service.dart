@@ -2,6 +2,7 @@ import 'package:app/core/error/failures.dart';
 import 'package:app/core/network/dio_client.dart';
 import 'package:app/core/utils/constants/constants.dart';
 import 'package:app/features/auth/data/models/login_params.dart';
+import 'package:app/features/auth/data/models/login_response.dart';
 import 'package:app/features/auth/data/models/register_params.dart';
 import 'package:app/features/auth/data/models/user_model.dart';
 import 'package:app/features/auth/domain/entities/user_entity.dart';
@@ -11,21 +12,21 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthRemoteService {
-  Future<Either<Failure, UserEntity>> login(LoginParams loginParams);
+  Future<Either<Failure, LoginResponse>> login(LoginParams loginParams);
   Future<Either<Failure, UserEntity>> register(RegisterParams registerParams);
   Future<Either<Failure, UserEntity>> getUser();
 }
 
 class AuthRemoteServiceImpl extends AuthRemoteService {
   @override
-  Future<Either<Failure, UserEntity>> login(LoginParams loginParams) async {
+  Future<Either<Failure, LoginResponse>> login(LoginParams loginParams) async {
     try {
       var response = await sl<DioClient>().post(
         AuthConstants.loginURL,
         data: loginParams.toJson(),
       );
 
-      return Right(UserModel.fromJson(response.data));
+      return Right(LoginResponse.fromJson(response.data));
     } on DioException catch (e) {
       return Left(e.response!.data);
     }
@@ -40,7 +41,7 @@ class AuthRemoteServiceImpl extends AuthRemoteService {
         data: registerParams.toJson(),
       );
 
-      return Right(UserModel.fromJson(response.data));
+      return Right(UserModel.fromJson(response.data).toEntity());
     } on DioException catch (e) {
       return Left(e.response!.data);
     }
@@ -51,9 +52,9 @@ class AuthRemoteServiceImpl extends AuthRemoteService {
     try {
       int? userId = sl<SharedPreferences>().getInt('user_id');
       var response =
-          await sl<DioClient>().get("${AuthConstants.userURL}/$userId");
+          await sl<DioClient>().get('${AuthConstants.userURL}/$userId');
 
-      return Right(UserModel.fromJson(response.data));
+      return Right(UserModel.fromJson(response.data).toEntity());
     } on DioException catch (e) {
       return Left(e.response!.data);
     }
