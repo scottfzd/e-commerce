@@ -22,7 +22,7 @@ class AuthRemoteServiceImpl extends AuthRemoteService {
   Future<Either<Failure, LoginResponse>> login(LoginParams loginParams) async {
     try {
       var response = await sl<DioClient>().post(
-        AuthConstants.loginURL,
+        Constants.loginURL,
         data: loginParams.toJson(),
       );
 
@@ -37,7 +37,7 @@ class AuthRemoteServiceImpl extends AuthRemoteService {
       RegisterParams registerParams) async {
     try {
       var response = await sl<DioClient>().post(
-        AuthConstants.registerURL,
+        Constants.registerURL,
         data: registerParams.toJson(),
       );
 
@@ -51,8 +51,7 @@ class AuthRemoteServiceImpl extends AuthRemoteService {
   Future<Either<Failure, UserEntity>> getUser() async {
     try {
       int? userId = sl<SharedPreferences>().getInt('user_id');
-      var response =
-          await sl<DioClient>().get('${AuthConstants.userURL}/$userId');
+      var response = await sl<DioClient>().get('${Constants.userURL}/$userId');
 
       return Right(UserModel.fromJson(response.data).toEntity());
     } on DioException catch (e) {

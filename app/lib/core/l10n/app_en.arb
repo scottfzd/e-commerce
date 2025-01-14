@@ -1,0 +1,27 @@
+{
+    "@@locale": "en",
+    "home": "Home",
+    "@home": {
+        "description": "Home"
+    },
+    "scanner": "Scanner",
+    "@scanner": {
+        "description": "Scanner"
+    },
+    "scan_a_product": "Scan a product",
+    "@scan_a_product": {
+        "description": "Scan a product"
+    },
+    "cart": "Cart",
+    "@cart": {
+        "description": "Cart"
+    },
+    "invoices": "Invoices",
+    "@invoices": {
+        "description": "Invoices"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "Profile"
+    }
+}

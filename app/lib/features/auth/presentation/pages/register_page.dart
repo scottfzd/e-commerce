@@ -1,6 +1,8 @@
 import 'package:app/features/auth/data/models/register_params.dart';
+import 'package:app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:app/features/auth/domain/usecases/register_usecase.dart';
 import 'package:app/features/auth/presentation/pages/login_page.dart';
+import 'package:app/service_locator.dart';
 import 'package:app/shared/bloc/button_cubit.dart';
 import 'package:app/shared/bloc/button_state.dart';
 import 'package:app/shared/widgets/basic_button.dart';
@@ -75,7 +77,8 @@ class RegisterPage extends StatelessWidget {
                 title: 'Register',
                 onPressed: () {
                   context.read<ButtonCubit>().execute(
-                        usecase: RegisterUsecase(),
+                        usecase: RegisterUsecase(
+                            authRepository: sl<AuthRepository>()),
                         params: RegisterParams(
                           email: _emailCon.text,
                           password: _passwordCon.text,

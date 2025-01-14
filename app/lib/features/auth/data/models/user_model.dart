@@ -1,13 +1,10 @@
 import 'package:app/features/auth/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
-  final String? password;
-
   const UserModel({
     super.id,
     super.email,
     super.roles,
-    this.password,
     super.firstName,
     super.lastName,
     super.phone,
@@ -22,7 +19,6 @@ class UserModel extends UserEntity {
       id: json['id'] ?? 0,
       email: json['email'] ?? '',
       roles: List<String>.from(json['roles'] ?? []),
-      password: json['password'] ?? '',
       firstName: json['firstName'] ?? '',
       lastName: json['lastName'] ?? '',
       phone: json['phone'] ?? 0,
@@ -38,7 +34,6 @@ class UserModel extends UserEntity {
       'id': id,
       'email': email,
       'roles': roles,
-      'password': password,
       'firstName': firstName,
       'lastName': lastName,
       'phone': phone,

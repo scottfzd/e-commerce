@@ -1,7 +1,7 @@
 import 'package:app/core/network/dio_client.dart';
 import 'package:app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:app/features/auth/data/services/local/auth_local_service.dart';
-import 'package:app/features/auth/data/services/remote/auth_api_service.dart';
+import 'package:app/features/auth/data/services/remote/auth_remote_service.dart';
 import 'package:app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:app/features/auth/domain/usecases/get_user_usecase.dart';
 import 'package:app/features/auth/domain/usecases/is_logged_in_usecase.dart';
@@ -35,10 +35,14 @@ void setupServiceLocator() {
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
 
   // Use cases
-  sl.registerSingleton<IsLoggedInUseCase>(IsLoggedInUseCase());
+  sl.registerFactory(
+      () => IsLoggedInUseCase(authRepository: sl<AuthRepository>()));
   sl.registerSingleton<LoginUsecase>(
       LoginUsecase(authRepository: sl<AuthRepository>()));
-  sl.registerSingleton<LogoutUsecase>(LogoutUsecase());
-  sl.registerSingleton<RegisterUsecase>(RegisterUsecase());
-  sl.registerSingleton<GetUserUsecase>(GetUserUsecase());
+  sl.registerSingleton<LogoutUsecase>(
+      LogoutUsecase(authRepository: sl<AuthRepository>()));
+  sl.registerSingleton<RegisterUsecase>(
+      RegisterUsecase(authRepository: sl<AuthRepository>()));
+  sl.registerSingleton<GetUserUsecase>(
+      GetUserUsecase(authRepository: sl<AuthRepository>()));
 }

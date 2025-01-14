@@ -1,0 +1,23 @@
+import 'package:app/features/profile/presentation/widgets/dark_mode.dart';
+import 'package:app/features/profile/presentation/widgets/language_mode.dart';
+import 'package:flutter/material.dart';
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //darkMode(context), // TODO: Revoir il bug
+            const SizedBox(height: 20),
+            languageMode(context),
+          ],
+        ),
+      ),
+    );
+  }
+}

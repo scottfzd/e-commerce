@@ -3,7 +3,7 @@ import 'package:app/features/auth/data/models/login_params.dart';
 import 'package:app/features/auth/data/models/login_response.dart';
 import 'package:app/features/auth/data/models/register_params.dart';
 import 'package:app/features/auth/data/services/local/auth_local_service.dart';
-import 'package:app/features/auth/data/services/remote/auth_api_service.dart';
+import 'package:app/features/auth/data/services/remote/auth_remote_service.dart';
 import 'package:app/features/auth/domain/entities/user_entity.dart';
 import 'package:app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:app/service_locator.dart';

@@ -43,6 +43,10 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   dartz: ^0.10.1
   flutter_bloc: ^8.1.6
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  simple_barcode_scanner: ^0.2.6
 
 dev_dependencies:
   flutter_test:
@@ -62,11 +66,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -14,12 +14,12 @@ const lightColorScheme = ColorScheme(
 
 const darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
-  primary: Colors.blueGrey,
-  onPrimary: Colors.black,
-  secondary: Colors.blueAccent,
-  onSecondary: Colors.black,
-  surface: Colors.grey,
+  primary: Colors.blue,
+  onPrimary: Colors.white,
+  secondary: Colors.lightBlueAccent,
+  onSecondary: Colors.white,
+  surface: Colors.black,
   onSurface: Colors.white,
   error: Colors.red,
-  onError: Colors.black,
+  onError: Colors.white,
 );

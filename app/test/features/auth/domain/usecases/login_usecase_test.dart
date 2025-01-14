@@ -45,7 +45,7 @@ void main() {
           .thenAnswer((_) async => const Right(user));
 
       // act
-      final result = await loginUsecase(params: loginParams);
+      final result = await loginUsecase(loginParams);
 
       // assert
       expect(result, equals(const Right(user)));
