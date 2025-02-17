@@ -20,7 +20,7 @@ void main() {
     roles: ['ROLE_USER'],
     firstName: 'John',
     lastName: 'Doe',
-    phone: 123456789,
+    phone: '123456789',
     address: '123 Street',
     city: 'City',
     zipCode: 12345,
