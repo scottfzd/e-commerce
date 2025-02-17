@@ -21,7 +21,7 @@ class UserModel extends UserEntity {
       roles: List<String>.from(json['roles'] ?? []),
       firstName: json['firstName'] ?? '',
       lastName: json['lastName'] ?? '',
-      phone: json['phone'] ?? 0,
+      phone: json['phone'] ?? '',
       address: json['address'] ?? '',
       zipCode: json['zipCode'] ?? 0,
       city: json['city'] ?? '',

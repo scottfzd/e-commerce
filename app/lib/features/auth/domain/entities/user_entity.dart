@@ -6,7 +6,7 @@ class UserEntity extends Equatable {
   final List<String>? roles;
   final String? firstName;
   final String? lastName;
-  final int? phone;
+  final String? phone;
   final String? address;
   final int? zipCode;
   final String? city;
