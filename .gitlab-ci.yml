@@ -19,7 +19,10 @@ stages:
 deploy-apk:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   stage: deploy
+  variables:
+    GIT_DEPTH: 0  # Forces a full clone
   script:
-    - aws s3 cp build/app-release.apk s3://$S3_BUCKET/ --recursive
+    - ls -la
+    - aws s3 cp ./apk s3://$S3_BUCKET/ --recursive
   only:
     - main  # Deploy only on main branch
