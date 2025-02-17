@@ -23,6 +23,6 @@ deploy-apk:
     GIT_DEPTH: 0  # Forces a full clone
   script:
     - ls -la
-    - aws s3 cp app-release.apk s3://$S3_BUCKET/ --recursive
+    - aws s3 cp ./app s3://$S3_BUCKET/ --recursive
   only:
     - main  # Deploy only on main branch
