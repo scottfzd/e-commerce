@@ -151,6 +151,8 @@ Générer les fichiers jwt (voir ci-dessous)
 
 # T-DEV-700 | Mobile
 
+L'APK peut etre telecharge via l'URL: https://tdevapp.s3.eu-north-1.amazonaws.com/app-release.apk
+
 ## Installation et Configuration
 
 ### Installation
