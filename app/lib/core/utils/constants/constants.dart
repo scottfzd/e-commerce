@@ -1,9 +1,11 @@
-const baseURL = 'https://burro-eternal-dragon.ngrok-free.app/api';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Constants {
-  static const loginURL = '$baseURL/login';
-  static const registerURL = '$baseURL/register';
-  static const userURL = '$baseURL/user';
-  static const logoutURL = '$baseURL/logout';
-  static const refreshTokenURL = '$baseURL/refresh-token';
+  static final String? baseURL = dotenv.env['BASE_URL'];
+
+  static final String loginURL = '$baseURL/login';
+  static final String registerURL = '$baseURL/register';
+  static final String userURL = '$baseURL/user';
+  static final String logoutURL = '$baseURL/logout';
+  static final String refreshTokenURL = '$baseURL/refresh-token';
 }
