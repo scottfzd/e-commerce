@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               ThemeCubit(themeRepository: sl())..getCurrentTheme(),
         ),
         BlocProvider(
-          create: (context) => AuthCubit()..appStarted(),
+          create: (context) => sl<AuthCubit>()..appStarted(),
         ),
         BlocProvider(
           create: (context) => BottomNavigationBloc(),
