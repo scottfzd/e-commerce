@@ -1,20 +1,12 @@
 import 'package:app/core/network/dio_client.dart';
-<<<<<<< HEAD
 import 'package:app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:app/features/auth/data/services/local/auth_local_service.dart';
 import 'package:app/features/auth/data/services/remote/auth_remote_service.dart';
 import 'package:app/features/auth/domain/repositories/auth_repository.dart';
-import 'package:app/features/auth/domain/usecases/get_user_usecase.dart';
-import 'package:app/features/auth/domain/usecases/is_logged_in_usecase.dart';
-import 'package:app/features/auth/domain/usecases/login_usecase.dart';
-import 'package:app/features/auth/domain/usecases/logout_usecase.dart';
-import 'package:app/features/auth/domain/usecases/register_usecase.dart';
 import 'package:app/features/carts/data/repositories/cart_repository_impl.dart';
 import 'package:app/features/carts/data/services/remote/cart_remote_service.dart';
 import 'package:app/features/carts/domain/repositories/cart_repository.dart';
-=======
 import 'package:app/features/auth/auth_service_locator.dart';
->>>>>>> 86bbf794fbd6bbc90afeb5f43895cd658ea9079d
 import 'package:app/features/theme/data/data_sources/local/theme_service.dart';
 import 'package:app/features/theme/data/repositories/theme_repository_impl.dart';
 import 'package:app/features/theme/domain/repositories/theme_repository.dart';
