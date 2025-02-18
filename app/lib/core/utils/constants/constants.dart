@@ -8,4 +8,5 @@ class Constants {
   static final String userURL = '$baseURL/user';
   static final String logoutURL = '$baseURL/logout';
   static final String refreshTokenURL = '$baseURL/refresh-token';
+  static final String cartUrl = '$baseURL/carts';
 }
