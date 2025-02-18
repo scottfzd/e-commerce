@@ -8,6 +8,9 @@ import 'package:app/features/auth/domain/usecases/is_logged_in_usecase.dart';
 import 'package:app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:app/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:app/features/auth/domain/usecases/register_usecase.dart';
+import 'package:app/features/carts/data/repositories/cart_repository_impl.dart';
+import 'package:app/features/carts/data/services/remote/cart_remote_service.dart';
+import 'package:app/features/carts/domain/repositories/cart_repository.dart';
 import 'package:app/features/theme/data/data_sources/local/theme_service.dart';
 import 'package:app/features/theme/data/repositories/theme_repository_impl.dart';
 import 'package:app/features/theme/domain/repositories/theme_repository.dart';
@@ -29,10 +32,12 @@ void setupServiceLocator() {
   sl.registerSingleton<ThemeService>(ThemeServiceImpl());
   sl.registerSingleton<AuthLocalService>(AuthLocalServiceImpl());
   sl.registerSingleton<AuthRemoteService>(AuthRemoteServiceImpl());
+  sl.registerSingleton<CartRemoteService>(CartRemoteServiceImpl());
 
   // Repositories
   sl.registerSingleton<ThemeRepository>(ThemeRepositoryImpl());
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
+  sl.registerSingleton<CartRepository>(CartRepositoryImpl());
 
   // Use cases
   sl.registerFactory(
