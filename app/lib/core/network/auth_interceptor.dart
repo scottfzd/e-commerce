@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:app/core/network/dio_client.dart';
 import 'package:app/core/utils/constants/constants.dart';
+import 'package:app/features/auth/presentation/bloc/auth_cubit.dart';
 import 'package:app/service_locator.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -40,37 +41,43 @@ class AuthInterceptor extends Interceptor {
             ),
           );
 
-          final newAccessToken = response.data['token'];
-          await sl<FlutterSecureStorage>()
-              .write(key: 'token', value: newAccessToken);
-          options.headers['Authorization'] = 'Bearer $newAccessToken';
+          if (response.data['token'] != null && response.data['token'] != '') {
+            final newAccessToken = response.data['token'];
+            await sl<FlutterSecureStorage>()
+                .write(key: 'token', value: newAccessToken);
+            options.headers['Authorization'] = 'Bearer $newAccessToken';
 
-          final response2 = await sl<DioClient>().get(
-            options.path,
-            queryParameters: options.queryParameters,
-            options: Options(
-              headers: options.headers,
-            ),
-            cancelToken: options.cancelToken,
-            onReceiveProgress: options.onReceiveProgress,
-          );
+            final response2 = await sl<DioClient>().get(
+              options.path,
+              queryParameters: options.queryParameters,
+              options: Options(
+                headers: options.headers,
+              ),
+              cancelToken: options.cancelToken,
+              onReceiveProgress: options.onReceiveProgress,
+            );
 
-          handler.resolve(response2);
+            handler.resolve(response2);
+          } else {
+            logout();
+            super.onError(err, handler);
+          }
         } else {
+          logout();
           super.onError(err, handler);
         }
       } on DioException catch (error, trace) {
         log('Cannot refresh', error: error, stackTrace: trace);
+        logout();
         super.onError(error, handler);
       }
     } else {
+      logout();
       super.onError(err, handler);
     }
   }
 
-  /* @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-// Modify response here if needed
-    super.onResponse(response, handler);
-  } */
+  Future<void> logout() async {
+    sl<AuthCubit>().logout();
+  }
 }

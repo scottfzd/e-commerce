@@ -14,6 +14,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupServiceLocator();
@@ -62,6 +64,18 @@ class MyApp extends StatelessWidget {
                   GlobalCupertinoLocalizations.delegate,
                 ],
                 supportedLocales: AppLocalizations.supportedLocales,
+                navigatorKey: navigatorKey,
+                onGenerateRoute: (settings) {
+                  final authState =
+                      BlocProvider.of<AuthCubit>(navigatorKey.currentContext!)
+                          .state;
+
+                  if (authState is! Authenticated) {
+                    return MaterialPageRoute(builder: (_) => LoginPage());
+                  }
+
+                  return MaterialPageRoute(builder: (_) => const HomePage());
+                },
                 home: BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, authState) {
                     if (authState is Authenticated) {
