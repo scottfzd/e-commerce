@@ -51,7 +51,7 @@ class AuthRemoteServiceImpl extends AuthRemoteService {
   Future<Either<Failure, UserEntity>> getUser() async {
     try {
       int? userId = sl<SharedPreferences>().getInt('user_id');
-      var response = await sl<DioClient>().get('${Constants.usersURL}/$userId');
+      var response = await sl<DioClient>().get('${Constants.userURL}/$userId');
 
       return Right(UserModel.fromJson(response.data).toEntity());
     } on DioException catch (e) {

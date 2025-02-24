@@ -22,7 +22,7 @@ class InvoiceRemoteServiceImpl extends InvoiceRemoteService {
       int page, int limit) async {
     try {
       final response = await sl<DioClient>().get(
-        '${Constants.usersURL}/me/invoices',
+        '${Constants.userURL}/me/invoices',
         queryParameters: {
           'page': page,
           'limit': limit,
@@ -55,7 +55,7 @@ class InvoiceRemoteServiceImpl extends InvoiceRemoteService {
       int userId, int page, int limit) async {
     try {
       final response = await sl<DioClient>().get(
-        '${Constants.usersURL}/$userId/invoices',
+        '${Constants.userURL}/$userId/invoices',
         queryParameters: {
           'page': page,
           'limit': limit,
@@ -87,7 +87,7 @@ class InvoiceRemoteServiceImpl extends InvoiceRemoteService {
   Future<Either<Failure, InvoiceEntity>> getInvoiceById(int id) async {
     try {
       final response = await sl<DioClient>().get(
-        '${Constants.invoicesURL}/$id',
+        '${Constants.invoiceURL}/$id',
       );
 
       return Right(response.data);
@@ -101,7 +101,7 @@ class InvoiceRemoteServiceImpl extends InvoiceRemoteService {
       InvoiceModel invoice) async {
     try {
       final response = await sl<DioClient>().post(
-        Constants.invoicesURL,
+        Constants.invoiceURL,
         data: invoice.toJson(),
       );
 
