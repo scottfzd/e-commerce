@@ -1,7 +1,8 @@
 import 'package:app/features/carts/presentation/pages/cart_page.dart';
+import 'package:app/features/invoices/presentation/blocs/invoices_cubit.dart';
+import 'package:app/features/invoices/presentation/pages/invoices_page.dart';
 import 'package:app/features/profile/presentation/pages/profile_page.dart';
 import 'package:app/features/scanner/presentation/pages/scanner_page.dart';
-import 'package:app/features/transactions/presentation/pages/purchases_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/home/presentation/blocs/bottom_navigation_bloc.dart';
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = const [
     ScannerPage(),
     CartPage(),
-    PurchasesPage(),
+    InvoicesPage(),
     ProfilePage(),
   ];
 
@@ -28,6 +29,9 @@ class _HomePageState extends State<HomePage> {
       providers: [
         BlocProvider<BottomNavigationBloc>(
           create: (context) => BottomNavigationBloc(),
+        ),
+        BlocProvider(
+          create: (context) => InvoicesCubit()..fetchInvoices(),
         ),
       ],
       child: Scaffold(
