@@ -12,7 +12,11 @@ class DioClient {
               sendTimeout: const Duration(seconds: 10),
               receiveTimeout: const Duration(seconds: 10)),
         )..interceptors.addAll([
-            PrettyDioLogger(), // Pretty Logger
+            PrettyDioLogger(
+              requestHeader: true,
+              requestBody: true,
+              responseHeader: true,
+            ), // Pretty Logger
             AuthInterceptor(), // Auth Interceptor for adding JWT token
           ]);
 

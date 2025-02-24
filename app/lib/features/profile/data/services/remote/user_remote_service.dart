@@ -16,7 +16,7 @@ class UserRemoteServiceImpl extends UserRemoteService {
     try {
       int? userId = sl<SharedPreferences>().getInt('user_id');
       Response response =
-          await sl<DioClient>().get('${Constants.userURL}/$userId');
+          await sl<DioClient>().get('${Constants.usersURL}/$userId');
 
       return Right(response);
     } on DioException catch (e) {
