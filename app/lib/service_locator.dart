@@ -1,4 +1,7 @@
 import 'package:app/core/network/dio_client.dart';
+import 'package:app/features/carts/data/repositories/cart_repository_impl.dart';
+import 'package:app/features/carts/data/services/remote/cart_remote_service.dart';
+import 'package:app/features/carts/domain/repositories/cart_repository.dart';
 import 'package:app/features/auth/auth_service_locator.dart';
 import 'package:app/features/invoices/invoice_service_locator.dart';
 import 'package:app/features/theme/data/data_sources/local/theme_service.dart';
@@ -20,9 +23,11 @@ void setupServiceLocator() {
 
   // Services
   sl.registerSingleton<ThemeService>(ThemeServiceImpl());
+  sl.registerSingleton<CartRemoteService>(CartRemoteServiceImpl());
 
   // Repositories
   sl.registerSingleton<ThemeRepository>(ThemeRepositoryImpl());
+  sl.registerSingleton<CartRepository>(CartRepositoryImpl());
 
   // Use cases
 

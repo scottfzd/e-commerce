@@ -8,7 +8,7 @@ class ProductModel extends ProductEntity {
     super.brand,
     super.picture,
     super.category,
-    super.nutrionalInfo,
+    super.nutritionalInfo,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -16,10 +16,10 @@ class ProductModel extends ProductEntity {
       id: json['id'] ?? 0,
       barcode: json['barcode'] ?? '',
       name: json['name'] ?? '',
-      brand: json['brand'] ?? '',
+      brand: json['brands'] ?? '',
       picture: json['picture'] ?? '',
-      category: json['category'] ?? '',
-      nutrionalInfo: json['nutrional_info'] ?? '',
+      category: json['categories'] ?? '',
+      nutritionalInfo: json['nutritional_info'] ?? '',
     );
   }
 
@@ -31,7 +31,7 @@ class ProductModel extends ProductEntity {
       'brand': brand,
       'picture': picture,
       'category': category,
-      'nutrional_info': nutrionalInfo,
+      'nutritional_info': nutritionalInfo,
     };
   }
 
@@ -43,7 +43,7 @@ class ProductModel extends ProductEntity {
       brand: brand,
       picture: picture,
       category: category,
-      nutrionalInfo: nutrionalInfo,
+      nutritionalInfo: nutritionalInfo,
     );
   }
 }
