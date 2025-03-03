@@ -7,7 +7,7 @@ class ProductEntity extends Equatable {
   final String? brand;
   final String? picture;
   final String? category;
-  final List? nutritionalInfo;
+  // final List<String>? nutritionalInfo;
 
   const ProductEntity({
     this.id,
@@ -16,7 +16,7 @@ class ProductEntity extends Equatable {
     this.brand,
     this.picture,
     this.category,
-    this.nutritionalInfo,
+    // this.nutritionalInfo,
   });
 
   @override
@@ -27,6 +27,6 @@ class ProductEntity extends Equatable {
         brand,
         picture,
         category,
-        nutritionalInfo,
+        // nutritionalInfo,
       ];
 }
