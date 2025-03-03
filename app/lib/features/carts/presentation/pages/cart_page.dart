@@ -60,49 +60,71 @@ class _CartPageState extends State<CartPage> {
 
             ),
             if (cartProducts != null)
-            for (var product in cartProducts) ...[
-              Row(
-                children: [
-                  Image.network(product.product.picture, width: 200, height: 200),
-                  Container(
-                    width: 211,
-                    height: 200,
-                    padding: const EdgeInsets.only(left: 21),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(product.product.name),
-                            Text(product.product.brand),
-                            if (product.product.category != '')
-                              Text(product.product.category),
-                            // for (var info in product.product.nutritionalInfo)
-                              // Text(info),
-                            Text('Qté: ${product.quantity}'),
-                            Text('${product.price} €')
-                          ]
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            print('TODO: api call to remove item from cart');
-                          }, 
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.black,
-                            padding: EdgeInsets.zero
+              for (var product in cartProducts) ...[
+                Row(
+                  children: [
+                    Image.network(product.product.picture, width: 200, height: 200),
+                    Container(
+                      width: 211,
+                      height: 200,
+                      padding: const EdgeInsets.only(left: 21),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(product.product.name),
+                              Text(product.product.brand),
+                              if (product.product.category != '')
+                                Text(product.product.category),
+                              // for (var info in product.product.nutritionalInfo)
+                                // Text(info),
+                              Text('Qté: ${product.quantity}'),
+                              Text('${product.price} €')
+                            ]
                           ),
-                          child: const Text('Remove item'),
-                        ),
-  
-                      ]
+                          TextButton(
+                            onPressed: () {
+                              print('TODO: api call to remove item from cart');
+                            }, 
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.black,
+                              padding: EdgeInsets.zero
+                            ),
+                            child: const Text('Remove item'),
+                          ),
+    
+                        ]
+                      )
                     )
-                  )
-                ]
+                  ]
+                ),
+                const SizedBox(height: 41)
+              ],
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.only(left: 50, right: 21, bottom: 21),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Sous-total: ${cart.total} €'),
+                    const Text('Livraison: Gratuit'),
+                    Text('TOTAL: ${cart.total} €')
+                  ]
+                )
               ),
-              const SizedBox(height: 41)
-            ]
+              ElevatedButton(
+                onPressed: () {
+                  print('pressed');
+                }, 
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black87
+                ),
+                child: const Text('Valider le panier')
+              )
           ]
         )
       );
