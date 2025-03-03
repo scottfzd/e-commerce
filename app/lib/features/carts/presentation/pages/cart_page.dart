@@ -14,6 +14,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
 
   var cart;
+  var cartProducts;
   @override
   void initState() {
     super.initState();
@@ -30,10 +31,14 @@ class _CartPageState extends State<CartPage> {
 
       cartData.fold(
         (failure) {
-          return const Center(child: Text('Failed to load cart'));
+          cart = null;
+          cartProducts = null;
         },
         (cartModel) {
+          print(cartModel);
           cart = cartModel;
+          cartProducts = cart.products;
+          print(cartProducts[0].product);
         }
       );
       print('YOU GREW UP IN A SILVER SPOON GATED COMMUNITY');
@@ -49,19 +54,20 @@ class _CartPageState extends State<CartPage> {
           children: [
             Container(
               margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 41),
-              child:
-              cart == null ? 
+              child: cart == null ? 
               const Center(child: CircularProgressIndicator()) : 
               Text('PANIER (${cart.products.length} articles)')
 
             ),
-            for (var product in cart.products) ...[
+            if (cartProducts != null)
+            for (var product in cartProducts) ...[
               Row(
                 children: [
-                  Image.network(product.picture, width: 200, height: 200),
-                  SizedBox(
+                  Image.network(product.product.picture, width: 200, height: 200),
+                  Container(
                     width: 211,
                     height: 200,
+                    padding: const EdgeInsets.only(left: 21),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,12 +75,14 @@ class _CartPageState extends State<CartPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(product.name),
-                            Text(product.brand),
-                            if (product.category != '')
-                              Text(product.category),
-                            for (var info in product.nutritionalInfo)
-                              Text(info),
+                            Text(product.product.name),
+                            Text(product.product.brand),
+                            if (product.product.category != '')
+                              Text(product.product.category),
+                            // for (var info in product.product.nutritionalInfo)
+                              // Text(info),
+                            Text('Qté: ${product.quantity}'),
+                            Text('${product.price} €')
                           ]
                         ),
                         TextButton(
