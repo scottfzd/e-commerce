@@ -43,19 +43,19 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
+    
       return Scaffold(
         body: Column(
           children: [
             Container(
-              margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+              margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 41),
               child:
               cart == null ? 
               const Center(child: CircularProgressIndicator()) : 
               Text('PANIER (${cart.products.length} articles)')
 
             ),
-              for (var product in cart.products)
+            for (var product in cart.products) ...[
               Row(
                 children: [
                   Image.network(product.picture, width: 200, height: 200),
@@ -92,7 +92,9 @@ class _CartPageState extends State<CartPage> {
                     )
                   )
                 ]
-              )
+              ),
+              const SizedBox(height: 41)
+            ]
           ]
         )
       );
