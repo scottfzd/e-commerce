@@ -48,33 +48,53 @@ class _CartPageState extends State<CartPage> {
         body: Column(
           children: [
             Container(
+              margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
               child:
               cart == null ? 
               const Center(child: CircularProgressIndicator()) : 
-              Text('PANIER (${cart.products.length})')
+              Text('PANIER (${cart.products.length} articles)')
 
             ),
-            // Container(
-              // child: Text('${cart.products[0].picture}'),
+              for (var product in cart.products)
               Row(
                 children: [
-                  Image.network(cart.products[0].picture, width: 200, height: 200),
-                  Column(
-                    children: [
-                      Text('${cart.products[0].name}'),
-                      Text('${cart.products[0].brand}'),
-                      if (cart.products[0].category != '')
-                        Text('${cart.products[0].category}'),
-                      for (var info in cart.products[0].nutritionalInfo)
-                        Text(info),
-                    ]
+                  Image.network(product.picture, width: 200, height: 200),
+                  SizedBox(
+                    width: 211,
+                    height: 200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(product.name),
+                            Text(product.brand),
+                            if (product.category != '')
+                              Text(product.category),
+                            for (var info in product.nutritionalInfo)
+                              Text(info),
+                          ]
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            print('TODO: api call to remove item from cart');
+                          }, 
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.black,
+                            padding: EdgeInsets.zero
+                          ),
+                          child: const Text('Remove item'),
+                        ),
+  
+                      ]
+                    )
                   )
                 ]
               )
-            // )
           ]
         )
       );
-    // );
   }
 }
