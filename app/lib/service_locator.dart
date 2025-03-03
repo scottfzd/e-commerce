@@ -4,6 +4,8 @@ import 'package:app/features/carts/data/services/remote/cart_remote_service.dart
 import 'package:app/features/carts/domain/repositories/cart_repository.dart';
 import 'package:app/features/auth/auth_service_locator.dart';
 import 'package:app/features/invoices/invoice_service_locator.dart';
+import 'package:app/features/products/product_service_locator.dart';
+import 'package:app/features/shops/shop_service_locator.dart';
 import 'package:app/features/theme/data/data_sources/local/theme_service.dart';
 import 'package:app/features/theme/data/repositories/theme_repository_impl.dart';
 import 'package:app/features/theme/domain/repositories/theme_repository.dart';
@@ -34,4 +36,6 @@ void setupServiceLocator() {
   // Other
   setupAuthServiceLocator();
   setupInvoiceServiceLocator();
+  setupShopServiceLocator();
+  setupProductServiceLocator();
 }

@@ -72,7 +72,7 @@ class AuthInterceptor extends Interceptor {
         super.onError(error, handler);
       }
     } else {
-      logout();
+      // Ne pas logout si ce n'est pas une erreur 401
       super.onError(err, handler);
     }
   }
