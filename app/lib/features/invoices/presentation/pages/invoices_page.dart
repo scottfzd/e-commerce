@@ -23,7 +23,6 @@ class _InvoicePageState extends State<InvoicesPage> {
   }
 
   void _onScroll() {
-    debugPrint('test');
     if (_scrollController.position.maxScrollExtent ==
             _scrollController.position.pixels ||
         _scrollController.position.pixels >=

@@ -2,6 +2,7 @@ import 'package:app/core/error/failures.dart';
 import 'package:app/features/auth/data/models/login_params.dart';
 import 'package:app/features/auth/data/models/login_response.dart';
 import 'package:app/features/auth/data/models/register_params.dart';
+import 'package:app/features/auth/data/models/user_model.dart';
 import 'package:app/features/auth/data/services/local/auth_local_service.dart';
 import 'package:app/features/auth/data/services/remote/auth_remote_service.dart';
 import 'package:app/features/auth/domain/entities/user_entity.dart';
@@ -39,7 +40,7 @@ class AuthRepositoryImpl extends AuthRepository {
           .write(key: 'token', value: response.data['token']);
       sl<FlutterSecureStorage>()
           .write(key: 'refresh_token', value: response.data['refresh_token']);
-      return Right(response.data);
+      return Right(UserModel.fromJson(response.data).toEntity());
     });
   }
 
@@ -70,7 +71,7 @@ class AuthRepositoryImpl extends AuthRepository {
       return Left(error);
     }, (data) async {
       Response response = data;
-      return Right(response.data);
+      return Right(UserModel.fromJson(response.data).toEntity());
     });
   }
 }

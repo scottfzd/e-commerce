@@ -1,3 +1,3 @@
 part of 'bottom_navigation_bloc.dart';
 
-enum BottomNavigationEvent { scanner, cart, invoices, profile }
+enum BottomNavigationEvent { scanner, cart, shops, invoices, profile }

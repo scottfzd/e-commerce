@@ -1,32 +1,33 @@
+import 'package:app/features/stocks/domain/entities/stock_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class ProductEntity extends Equatable {
-  final int? id;
-  final String? barcode;
+  final String barcode;
   final String? name;
-  final String? brand;
+  final String? brands;
+  final String? categories;
+  final List<String>? nutrionalInfo;
   final String? picture;
-  final String? category;
-  // final List<String>? nutritionalInfo;
+  final StockEntity? stock;
 
   const ProductEntity({
-    this.id,
-    this.barcode,
+    required this.barcode,
     this.name,
-    this.brand,
+    this.brands,
+    this.categories,
+    this.nutrionalInfo,
     this.picture,
-    this.category,
-    // this.nutritionalInfo,
+    this.stock,
   });
 
   @override
   List<Object?> get props => [
-        id,
         barcode,
         name,
-        brand,
+        brands,
+        categories,
+        nutrionalInfo,
         picture,
-        category,
-        // nutritionalInfo,
+        stock,
       ];
 }
