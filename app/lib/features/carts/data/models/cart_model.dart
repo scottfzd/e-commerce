@@ -1,5 +1,5 @@
+import 'package:app/features/cart_products/data/models/cart_product_model.dart';
 import 'package:app/features/carts/domain/entities/cart_entity.dart';
-import 'package:app/features/products/data/models/product_model.dart';
 
 class CartModel extends CartEntity {
   const CartModel({
@@ -13,13 +13,13 @@ class CartModel extends CartEntity {
   factory CartModel.fromJson(Map<String, dynamic> json) {
 
     final cartData = json['cart'] ?? {};
-    final products = (json['products'] as List?) ?? [];
+    final cartProducts = (json['cartProducts'] as List?) ?? [];
     return CartModel(
       id: cartData['id'] ?? 0,
       userId: cartData['user_id'] ?? 0,
       status: cartData['status'] ?? '',
       total: cartData['total'] ?? 0,
-      products: products.map((product) => ProductModel.fromJson(product)).toList()
+      products: cartProducts.map((product) => CartProductModel.fromJson(product)).toList()
     );
   }
 
