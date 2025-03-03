@@ -1,28 +1,35 @@
-import 'dart:ffi';
-
 import 'package:equatable/equatable.dart';
 
-class TransactionEntity extends Equatable {
+class InvoiceEntity extends Equatable {
   final int? id;
-  final Float? total;
+  final int? userId;
+  final int? cartId;
+  final int? shopId;
+  final double? total;
   final String? paymentStatus;
   final String? orderStatus;
-  final DateTime? orderedAt;
+  final DateTime? orderedDate;
 
-  const TransactionEntity({
+  const InvoiceEntity({
     this.id,
+    this.userId,
+    this.cartId,
+    this.shopId,
     this.total,
     this.paymentStatus,
     this.orderStatus,
-    this.orderedAt,
+    this.orderedDate,
   });
 
   @override
   List<Object?> get props => [
         id,
+        userId,
+        cartId,
+        shopId,
         total,
         paymentStatus,
         orderStatus,
-        orderedAt,
+        orderedDate,
       ];
 }

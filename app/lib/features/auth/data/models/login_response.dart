@@ -23,8 +23,8 @@ class LoginResponse extends Equatable {
 
   @override
   List<Object?> get props => [
+        user,
         token,
         refreshToken,
-        user,
       ];
 }

@@ -1,4 +1,3 @@
-import 'package:app/features/profile/presentation/widgets/dark_mode.dart';
 import 'package:app/features/profile/presentation/widgets/language_mode.dart';
 import 'package:flutter/material.dart';
 

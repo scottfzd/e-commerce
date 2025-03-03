@@ -1,18 +1,19 @@
-import 'dart:ffi';
-
 import 'package:equatable/equatable.dart';
+import 'package:app/features/products/domain/entities/product_entity.dart';
 
 class CartEntity extends Equatable {
   final int? id;
   final int? userId;
-  final Float? total;
+  final double? total;
   final String? status;
+  final List<ProductEntity>? products; 
 
   const CartEntity({
     this.id,
     this.userId,
     this.status,
     this.total,
+    this.products
   });
 
   @override
@@ -21,5 +22,6 @@ class CartEntity extends Equatable {
         userId,
         total,
         status,
+        products
       ];
 }
