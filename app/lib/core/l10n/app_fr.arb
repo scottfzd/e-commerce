@@ -44,9 +44,9 @@
     "@shop": {
         "description": "Magasin"
     },
-    "products": "Produits",
+    "products": "articles",
     "@products": {
-        "description": "Produits"
+        "description": "articles"
     },
     "product": "Produit",
     "@product": {
@@ -83,5 +83,25 @@
     "empty_cart": "Panier vide",
     "@empty_cart": {
         "description": "Panier vide"
+    },
+    "remove_item": "Supprimer",
+    "@empty_cart": {
+        "description": "Supprimer"
+    },
+    "subtotal": "Sous-total",
+    "@subtotal": {
+        "description": "Sous-total"
+    },
+    "delivery_fee": "Livraison",
+    "@delivery_fee": {
+        "description": "Livraison"
+    },
+    "free_delivery": "Gratuit",
+    "@free_delivery": {
+        "description": "Gratuit"
+    },
+    "validate_cart": "Valider le panier",
+    "@validate_cart": {
+        "description": "Valider le panier"
     }
 }
