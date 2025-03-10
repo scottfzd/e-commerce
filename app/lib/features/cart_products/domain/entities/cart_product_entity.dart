@@ -1,11 +1,13 @@
 import 'package:app/features/products/domain/entities/product_entity.dart';
 
 class CartProductEntity {
+  final int? id;
   final ProductEntity? product;
   final int? quantity;
-  final String? price;
+  final double? price;
 
   const CartProductEntity({
+    this.id,
     this.product,
     this.quantity,
     this.price,

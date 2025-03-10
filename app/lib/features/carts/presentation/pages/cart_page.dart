@@ -1,8 +1,9 @@
-import 'package:app/features/carts/domain/entities/cart_entity.dart';
 import 'package:app/features/carts/domain/repositories/cart_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:app/service_locator.dart';
-
+import 'package:app/features/cart_products/domain/repositories/cart_product_repository.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -24,10 +25,9 @@ class _CartPageState extends State<CartPage> {
   Future<void> _loadCartData() async {
     final cartData = await sl<CartRepository>().getMyCart();
 
-    print('I BET YOU THINK ABOUT ME YES I BET YOU THINK ABOUT ME');
+    print('GETTING CART DATA');
     print(cartData);
     setState(() {
-      // cart = cartData;
 
       cartData.fold(
         (failure) {
@@ -38,10 +38,10 @@ class _CartPageState extends State<CartPage> {
           print(cartModel);
           cart = cartModel;
           cartProducts = cart.products;
-          print(cartProducts[0].product);
+          // print(cartProducts[0].product);
         }
       );
-      print('YOU GREW UP IN A SILVER SPOON GATED COMMUNITY');
+      print('HOPEFULLY GOT CART DATA');
 
     });
   }
@@ -56,19 +56,31 @@ class _CartPageState extends State<CartPage> {
               margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 41),
               child: cart == null ? 
               const Center(child: CircularProgressIndicator()) : 
-              Text('PANIER (${cart.products.length} articles)')
+              Text('${AppLocalizations.of(context)!.cart.toUpperCase()} (${cart.products.length} ${AppLocalizations.of(context)!.products})')
 
             ),
-            if (cartProducts != null)
+            if (cartProducts != null && cart!= null)
               for (var product in cartProducts) ...[
-                Row(
-                  children: [
-                    Image.network(product.product.picture, width: 200, height: 200),
-                    Container(
-                      width: 211,
-                      height: 200,
-                      padding: const EdgeInsets.only(left: 21),
-                      child: Column(
+                Card(
+                  margin: const EdgeInsets.only(left: 10, right: 10),
+                  child: 
+                Container(
+                  height: 200,
+                  padding: const EdgeInsets.all(10.0),
+                  child: 
+                  Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        height: 140,
+                        width: 140,
+                        child:
+                        Image.network(product.product.picture),
+                      ),
+                      SizedBox(
+                        height: 200,
+                        child: 
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -76,9 +88,9 @@ class _CartPageState extends State<CartPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(product.product.name),
-                              Text(product.product.brand),
-                              if (product.product.category != '')
-                                Text(product.product.category),
+                              Text(product.product.brands),
+                              if (product.product.categories != '')
+                                Text(product.product.categories),
                               // for (var info in product.product.nutritionalInfo)
                                 // Text(info),
                               Text('Qté: ${product.quantity}'),
@@ -86,22 +98,37 @@ class _CartPageState extends State<CartPage> {
                             ]
                           ),
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               print('TODO: api call to remove item from cart');
-                            }, 
+                              final result = await sl<CartProductRepository>().removeProductFromCart(product.id);
+
+                              result.fold(
+                                (failure) {
+                                  Fluttertoast.showToast(msg: 
+                                  'Erreur: Article non supprimé');
+                                },
+                                (success) {
+                                  Fluttertoast.showToast(msg: 'Article supprimé');
+                                  _loadCartData();
+                                }
+                              );
+                            },
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.black,
-                              padding: EdgeInsets.zero
+                              padding: EdgeInsets.zero,
                             ),
-                            child: const Text('Remove item'),
+                            // child: const Text('Remove item'),
+                            child: Text(AppLocalizations.of(context)!.remove_item),
                           ),
     
                         ]
                       )
-                    )
-                  ]
+                      )
+                    ]
+                  ),
                 ),
-                const SizedBox(height: 41)
+                ),
+                const SizedBox(height: 31)
               ],
               Container(
                 width: double.infinity,
@@ -109,21 +136,25 @@ class _CartPageState extends State<CartPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Sous-total: ${cart.total} €'),
-                    const Text('Livraison: Gratuit'),
+                    Text('${AppLocalizations.of(context)!.subtotal}: ${cart.total} €'),
+                    Text('${AppLocalizations.of(context)!.delivery_fee}: ${AppLocalizations.of(context)!.free_delivery}'),
                     Text('TOTAL: ${cart.total} €')
                   ]
                 )
               ),
-              ElevatedButton(
-                onPressed: () {
-                  print('pressed');
-                }, 
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.black87
-                ),
-                child: const Text('Valider le panier')
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  onPressed: () {
+                    print('pressed');
+                  }, 
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.black87
+                  ),
+                  child: Text(AppLocalizations.of(context)!.validate_cart)
+                )
               )
           ]
         )

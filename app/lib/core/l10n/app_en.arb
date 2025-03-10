@@ -44,9 +44,9 @@
     "@shop": {
         "description": "Shop"
     },
-    "products": "Products",
+    "products": "products",
     "@products": {
-        "description": "Products"
+        "description": "products"
     },
     "product": "Product",
     "@product": {
@@ -83,5 +83,26 @@
     "empty_cart": "Empty cart",
     "@empty_cart": {
         "description": "Empty cart"
+    },
+    "remove_item": "Remove item",
+    "@remove_item": {
+        "description": "Remove item"
+    },
+    "subtotal": "Subtotal",
+    "@subtotal": {
+        "description": "Subtotal"
+    },
+    "delivery_fee": "Delivery",
+    "@delivery_fee": {
+        "description": "Delivery"
+    },
+    "free_delivery": "Free",
+    "@free_delivery": {
+        "description": "Free"
+    },
+    "validate_cart": "Validate cart",
+    "@validate_cart": {
+        "description": "Validate cart"
     }
+
 }
