@@ -103,5 +103,9 @@
     "validate_cart": "Valider le panier",
     "@validate_cart": {
         "description": "Valider le panier"
+    },
+    "quantity": "Qté",
+    "@quantity": {
+        "description": "Qté"
     }
 }

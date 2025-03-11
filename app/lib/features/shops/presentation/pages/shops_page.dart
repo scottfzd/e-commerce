@@ -70,6 +70,8 @@ class _ShopsPageState extends State<ShopsPage> {
             shops = state.shops;
           } else if (state is ShopsError) {
             return Center(child: Text(state.message));
+          } else if (state is ShopSelected) {
+            shops = state.shops;
           }
 
           return ListView.builder(
@@ -92,6 +94,7 @@ class _ShopsPageState extends State<ShopsPage> {
                   setState(() {
                     _shopIdSelected = shop.id.toString();
                   });
+                  context.read<ShopsCubit>().selectShop(shop);
                 },
               );
             },

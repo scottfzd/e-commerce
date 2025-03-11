@@ -4,11 +4,14 @@ import 'package:app/features/invoices/presentation/pages/invoices_page.dart';
 import 'package:app/features/profile/presentation/pages/profile_page.dart';
 import 'package:app/features/products/presentation/pages/products_page.dart';
 import 'package:app/features/shops/presentation/blocs/shops_cubit.dart';
+import 'package:app/features/shops/presentation/blocs/shops_state.dart';
 import 'package:app/features/shops/presentation/pages/shops_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/home/presentation/blocs/bottom_navigation_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:app/service_locator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -42,7 +45,15 @@ class _HomePageState extends State<HomePage> {
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.home),
+            title: BlocBuilder<ShopsCubit, ShopsState>(
+              builder: (context, state) {
+                if (state is ShopSelected) {
+                  return Text(state.selectedShop.name ?? AppLocalizations.of(context)!.home);
+                } else {
+                  return Text(AppLocalizations.of(context)!.home);
+                }
+              },
+            ),
         ),
         body: BlocBuilder<BottomNavigationBloc, int>(
           builder: (context, currentIndex) {
