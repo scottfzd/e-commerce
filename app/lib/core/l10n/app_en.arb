@@ -103,6 +103,10 @@
     "validate_cart": "Validate cart",
     "@validate_cart": {
         "description": "Validate cart"
+    },
+    "quantity": "Qty",
+    "@quantity": {
+        "description": "Qty"
     }
 
 }

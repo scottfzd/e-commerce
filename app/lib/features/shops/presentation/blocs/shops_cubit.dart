@@ -7,6 +7,7 @@ import 'package:app/features/shops/presentation/blocs/shops_state.dart';
 import 'package:app/shared/models/pagination_params_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ShopsCubit extends Cubit<ShopsState> {
   ShopsCubit() : super(ShopsLoading());
@@ -63,5 +64,11 @@ class ShopsCubit extends Cubit<ShopsState> {
     } else {
       return 'Une erreur inconnue est survenue.';
     }
+  }
+
+
+  void selectShop(ShopEntity shop) async {
+    await sl<FlutterSecureStorage>().write(key: 'shopName', value: shop.name);
+    emit(ShopSelected(shop, shop.name, _allShops));
   }
 }

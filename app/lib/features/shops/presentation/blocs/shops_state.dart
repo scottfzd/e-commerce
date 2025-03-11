@@ -21,3 +21,11 @@ class ShopsError extends ShopsState {
 
   ShopsError(this.message);
 }
+
+class ShopSelected extends ShopsState {
+  final ShopEntity selectedShop;
+  final String? shopName;
+  final List<ShopEntity> shops;
+
+  ShopSelected(this.selectedShop, this.shopName, this.shops);
+}

@@ -93,7 +93,7 @@ class _CartPageState extends State<CartPage> {
                                 Text(product.product.categories),
                               // for (var info in product.product.nutritionalInfo)
                                 // Text(info),
-                              Text('Qté: ${product.quantity}'),
+                              Text('${AppLocalizations.of(context)!.quantity}: ${product.quantity}'),
                               Text('${product.price} €')
                             ]
                           ),
