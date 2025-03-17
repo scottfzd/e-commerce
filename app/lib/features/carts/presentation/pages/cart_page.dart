@@ -4,6 +4,7 @@ import 'package:app/service_locator.dart';
 import 'package:app/features/cart_products/domain/repositories/cart_product_repository.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -23,9 +24,11 @@ class _CartPageState extends State<CartPage> {
   }
 
   Future<void> _loadCartData() async {
-    final cartData = await sl<CartRepository>().getMyCart();
 
-    print('GETTING CART DATA');
+    final selectedShopId = await sl<FlutterSecureStorage>().read(key: 'shopId');
+
+    final cartData = await sl<CartRepository>().getMyCart(selectedShopId);
+
     print(cartData);
     setState(() {
 
@@ -41,7 +44,6 @@ class _CartPageState extends State<CartPage> {
           // print(cartProducts[0].product);
         }
       );
-      print('HOPEFULLY GOT CART DATA');
 
     });
   }
@@ -136,9 +138,10 @@ class _CartPageState extends State<CartPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${AppLocalizations.of(context)!.subtotal}: ${cart.total} €'),
+                    if (cart != null)
+                    Text('${AppLocalizations.of(context)!.subtotal}: ${cart?.total} €'),
                     Text('${AppLocalizations.of(context)!.delivery_fee}: ${AppLocalizations.of(context)!.free_delivery}'),
-                    Text('TOTAL: ${cart.total} €')
+                    Text('TOTAL: ${cart?.total} €')
                   ]
                 )
               ),

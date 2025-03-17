@@ -9,16 +9,16 @@ import 'package:dio/dio.dart';
 
 
 abstract class CartRemoteService {
-  Future<Either<Failure, CartEntity>> getMyCart();
+  Future<Either<Failure, CartEntity>> getMyCart(shopId);
 }
 
 class CartRemoteServiceImpl extends CartRemoteService {
   @override
-  Future<Either<Failure, CartEntity>> getMyCart() async {
+  Future<Either<Failure, CartEntity>> getMyCart(shopId) async {
 
     try {
       var response = await sl<DioClient>().get(
-        '${Constants.cartUrl}/getMyCart',
+        '${Constants.cartUrl}/getMyCart/$shopId',
       );
       print(response);
       return Right(CartModel.fromJson(response.data));

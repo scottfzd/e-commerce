@@ -8,10 +8,9 @@ import 'package:app/service_locator.dart';
 class CartRepositoryImpl extends CartRepository {
 
   @override
-  Future<Either<Failure, CartEntity>>getMyCart() async {
-
-    print('ARE WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE IN????????????');
-    Either result = await sl<CartRemoteService>().getMyCart();
+  Future<Either<Failure, CartEntity>>getMyCart(shopId) async {
+    
+    Either result = await sl<CartRemoteService>().getMyCart(shopId);
 
     return result.fold((error) { 
         return Left(error); 
