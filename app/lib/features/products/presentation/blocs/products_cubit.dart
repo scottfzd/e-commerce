@@ -10,7 +10,7 @@ import 'package:app/features/products/presentation/blocs/products_state.dart';
 import 'package:app/shared/models/pagination_params_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   ProductsCubit() : super(ProductsLoading());
@@ -30,7 +30,7 @@ class ProductsCubit extends Cubit<ProductsState> {
       emit(ProductsLoadingMore(_allProducts));
     }
 
-    String? shopIdString = await sl<FlutterSecureStorage>().read(key: 'shopId');
+    String? shopIdString = sl<SharedPreferences>().getString('shopId');
 
     if (shopIdString == null) {
       emit(ProductsError('Shop ID not found'));
@@ -72,7 +72,7 @@ class ProductsCubit extends Cubit<ProductsState> {
   Future<void> fetchProductByBarcode(String barcode) async {
     emit(ProductsLoading());
 
-    String? shopIdString = await sl<FlutterSecureStorage>().read(key: 'shopId');
+    String? shopIdString = sl<SharedPreferences>().getString('shopId');
 
     if (shopIdString == null) {
       emit(ProductsError('Shop ID not found'));

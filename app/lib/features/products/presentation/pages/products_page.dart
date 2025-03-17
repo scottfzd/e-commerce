@@ -60,8 +60,6 @@ class ProductsPage extends StatelessWidget {
                             AppLocalizations.of(context)!.no_products_found);
               } else if (state is ProductsError) {
                 return Center(child: Text(state.message));
-              } else if (state is ProductError) {
-                return Center(child: Text(state.message));
               }
               return Container();
             },

@@ -9,7 +9,7 @@ Widget darkMode(BuildContext context) {
       const Text('Dark Mode'),
       const SizedBox(width: 10),
       Switch(
-        value: context.read<ThemeCubit>().state.themeMode == ThemeMode.dark,
+        value: context.watch<ThemeCubit>().state.themeMode == ThemeMode.dark,
         onChanged: (value) {
           context.read<ThemeCubit>().switchTheme();
         },

@@ -6,6 +6,7 @@ class InvoicesLoading extends InvoicesState {}
 
 class InvoicesLoadingMore extends InvoicesState {
   final List<InvoiceEntity> invoices;
+
   InvoicesLoadingMore(this.invoices);
 }
 
