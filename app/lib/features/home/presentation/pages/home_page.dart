@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/home/presentation/blocs/bottom_navigation_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:app/service_locator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
