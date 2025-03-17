@@ -4,7 +4,7 @@ import 'package:app/features/shops/presentation/blocs/shops_cubit.dart';
 import 'package:app/features/shops/presentation/blocs/shops_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopsPage extends StatefulWidget {
   const ShopsPage({super.key});
@@ -28,8 +28,7 @@ class _ShopsPageState extends State<ShopsPage> {
 
   Future<void> getShopIdSelected() async {
     try {
-      final shopIdSelected =
-          await sl<FlutterSecureStorage>().read(key: 'shopId');
+      final shopIdSelected = sl<SharedPreferences>().getString('shopId') ?? '';
       setState(() {
         _shopIdSelected = shopIdSelected;
       });
@@ -89,8 +88,8 @@ class _ShopsPageState extends State<ShopsPage> {
                 subtitle: Text(shop.name!),
                 selected: shop.id.toString() == _shopIdSelected,
                 onTap: () {
-                  sl<FlutterSecureStorage>()
-                      .write(key: 'shopId', value: shop.id.toString());
+                  sl<SharedPreferences>()
+                      .setString('shopId', shop.id.toString());
                   setState(() {
                     _shopIdSelected = shop.id.toString();
                   });
