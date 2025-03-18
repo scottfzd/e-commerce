@@ -27,14 +27,11 @@ class _CartPageState extends State<CartPage> {
   }
 
   Future<void> _loadCartData() async {
-    final shopIdString = await sl<FlutterSecureStorage>().read(key: 'refresh_token');
+    final shopIdString = await sl<FlutterSecureStorage>().read(key: 'shopId');
     print(shopIdString);
     final shopId = int.tryParse(shopIdString ?? '') ?? 0; 
     final cartData = await sl<CartRepository>().getMyCart(shopId);
 
-    final selectedShopId = await sl<FlutterSecureStorage>().read(key: 'shopId');
-
-    final cartData = await sl<CartRepository>().getMyCart(selectedShopId);
 
     print(cartData);
     setState(() {
