@@ -44,9 +44,9 @@
     "@shop": {
         "description": "Magasin"
     },
-    "products": "articles",
+    "products": "Produits",
     "@products": {
-        "description": "articles"
+        "description": "Produits"
     },
     "product": "Produit",
     "@product": {
@@ -107,5 +107,9 @@
     "quantity": "Qté",
     "@quantity": {
         "description": "Qté"
+    },
+    "price": "Prix",
+    "@price": {
+        "description": "Prix"
     }
 }

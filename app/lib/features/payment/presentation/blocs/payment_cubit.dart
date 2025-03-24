@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit() : super(PaymentLoading());
 
-  int? _orderId;
+  String? _orderId;
 
   int get shopId {
     String? shopIdString = sl<SharedPreferences>().getString('shopId');
@@ -24,7 +24,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     return int.parse(shopIdString);
   }
 
-  int? get orderId => _orderId;
+  String? get orderId => _orderId;
 
   Future<void> getWebviewUrl() async {
     emit(PaymentLoading());

@@ -1,6 +1,6 @@
 class PaypalCallbackParams {
   final int shopId;
-  final int orderId;
+  final String orderId;
   final String token;
 
   const PaypalCallbackParams({

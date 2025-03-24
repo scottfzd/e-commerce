@@ -1,10 +1,5 @@
 import 'package:app/core/network/dio_client.dart';
-import 'package:app/features/cart_products/data/repositories/cart_product_repository_impl.dart';
-import 'package:app/features/cart_products/data/services/remote/cart_product_remote_service.dart';
-import 'package:app/features/cart_products/domain/repositories/cart_product_repository.dart';
-import 'package:app/features/carts/data/repositories/cart_repository_impl.dart';
-import 'package:app/features/carts/data/services/remote/cart_remote_service.dart';
-import 'package:app/features/carts/domain/repositories/cart_repository.dart';
+import 'package:app/features/carts/cart_service_locator.dart';
 import 'package:app/features/auth/auth_service_locator.dart';
 import 'package:app/features/invoices/invoice_service_locator.dart';
 import 'package:app/features/payment/payment_service_locator.dart';
@@ -31,16 +26,9 @@ void setupServiceLocator() {
 
   // Services
   sl.registerSingleton<ThemeService>(ThemeServiceImpl());
-  sl.registerSingleton<CartRemoteService>(CartRemoteServiceImpl());
-  sl.registerSingleton<CartProductRemoteService>(CartProductRemoteServiceImpl());
 
   // Repositories
   sl.registerSingleton<ThemeRepository>(ThemeRepositoryImpl());
-  sl.registerSingleton<CartRepository>(CartRepositoryImpl());
-  sl.registerSingleton<CartProductRepository>(CartProductRepositoryImpl());
-
-
-  // Use cases
 
   // Other
   setupAuthServiceLocator();

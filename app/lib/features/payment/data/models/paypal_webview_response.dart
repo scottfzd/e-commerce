@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class PaypalWebviewResponse extends Equatable {
-  final int orderId;
+  final String orderId;
   final String url;
 
   const PaypalWebviewResponse({

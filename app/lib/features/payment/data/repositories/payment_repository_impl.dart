@@ -17,7 +17,7 @@ class PaymentRepositoryImpl extends PaymentRepository {
       return Left(error);
     }, (data) async {
       Response response = data;
-      return Right(response.data);
+      return Right(PaypalWebviewResponse.fromJson(response.data));
     });
   }
 
