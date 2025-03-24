@@ -22,6 +22,24 @@ class ProductLoaded extends ProductsState {
   ProductLoaded(this.product);
 }
 
+class ProductAdded extends ProductsState {
+  final ProductEntity product;
+
+  ProductAdded(this.product);
+}
+
+class ProductUpdated extends ProductsState {
+  final ProductEntity product;
+
+  ProductUpdated(this.product);
+}
+
+class ProductRemoved extends ProductsState {
+  final ProductEntity product;
+
+  ProductRemoved(this.product);
+}
+
 class ProductsError extends ProductsState {
   final String message;
 

@@ -7,11 +7,13 @@ import 'package:app/features/carts/data/services/remote/cart_remote_service.dart
 import 'package:app/features/carts/domain/repositories/cart_repository.dart';
 import 'package:app/features/auth/auth_service_locator.dart';
 import 'package:app/features/invoices/invoice_service_locator.dart';
+import 'package:app/features/payment/payment_service_locator.dart';
 import 'package:app/features/products/product_service_locator.dart';
 import 'package:app/features/shops/shop_service_locator.dart';
 import 'package:app/features/theme/data/data_sources/local/theme_service.dart';
 import 'package:app/features/theme/data/repositories/theme_repository_impl.dart';
 import 'package:app/features/theme/domain/repositories/theme_repository.dart';
+import 'package:app_links/app_links.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +27,7 @@ void setupServiceLocator() {
       const FlutterSecureStorage()); // Enregistrement local de données sécurisé
   sl.registerSingletonAsync<SharedPreferences>(
       () async => await SharedPreferences.getInstance());
+  sl.registerSingleton<AppLinks>(AppLinks()); // Gestion des liens profonds
 
   // Services
   sl.registerSingleton<ThemeService>(ThemeServiceImpl());
@@ -44,4 +47,6 @@ void setupServiceLocator() {
   setupInvoiceServiceLocator();
   setupShopServiceLocator();
   setupProductServiceLocator();
+  setupCartServiceLocator();
+  setupPaymentServiceLocator();
 }

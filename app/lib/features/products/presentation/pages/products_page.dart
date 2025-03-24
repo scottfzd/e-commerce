@@ -26,7 +26,12 @@ class ProductsPage extends StatelessWidget {
             if (state is ProductLoaded) {
               showDialog(
                 context: context,
-                builder: (context) => ProductDialog(product: state.product),
+                builder: (dialogContext) {
+                  return BlocProvider.value(
+                    value: context.read<ProductsCubit>(),
+                    child: ProductDialog(product: state.product),
+                  );
+                },
               );
             }
           },

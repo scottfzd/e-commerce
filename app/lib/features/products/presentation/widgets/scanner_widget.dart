@@ -11,9 +11,10 @@ class ScannerWidget extends StatelessWidget {
     return FloatingActionButton(
       onPressed: () async {
         String? barcode = await ScanWidget.scanBarcode(context);
-        if (barcode != null) {
+        if (!context.mounted) return;
+        if (barcode != null && barcode != '-1') {
+          //barcode = '1234567890123';
           debugPrint('Code-barre scanné : $barcode');
-          if (!context.mounted) return;
           context.read<ProductsCubit>().fetchProductByBarcode(barcode);
         } else {
           debugPrint('Aucun code-barre scanné');

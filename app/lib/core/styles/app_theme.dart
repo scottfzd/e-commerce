@@ -10,9 +10,9 @@ class AppTheme {
 
   ThemeData getTheme() {
     return ThemeData.from(
+      useMaterial3: true,
       colorScheme: chosenColor.colorScheme,
       textTheme: chosenColor.textTheme,
-      useMaterial3: true,
     ).copyWith(
       appBarTheme: AppBarTheme(
         color: Colors.transparent,
@@ -23,11 +23,14 @@ class AppTheme {
         backgroundColor: chosenColor.colorScheme.surface,
         contentTextStyle: TextStyle(color: chosenColor.colorScheme.onSurface),
       ),
+      brightness: chosenColor.colorScheme.brightness,
+      scaffoldBackgroundColor: chosenColor.colorScheme.surface,
+      canvasColor: chosenColor.colorScheme.surface,
     );
   }
 }
 
-class AppTheme2 {
+/* class AppTheme2 {
   static final appTheme = ThemeData(
     primaryColor: const Color(0xff3461FD),
     scaffoldBackgroundColor: Colors.white,
@@ -61,4 +64,4 @@ class AppTheme2 {
       ),
     ),
   );
-}
+} */

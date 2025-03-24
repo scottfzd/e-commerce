@@ -13,8 +13,8 @@ class CartProductModel extends CartProductEntity {
     return CartProductModel(
       id: json['id'],
       product: ProductModel.fromJson(json['product']),
-      quantity: json['quantity'] ?? 1, 
-      price: json['price'] ?? 0,
+      quantity: json['quantity'] ?? 1,
+      price: json['price'] ?? '0.00',
     );
   }
 
@@ -25,5 +25,13 @@ class CartProductModel extends CartProductEntity {
       'quantity': quantity,
       'price': price,
     };
+  }
+
+  CartProductEntity toEntity() {
+    return CartProductEntity(
+      product: product,
+      quantity: quantity,
+      price: price,
+    );
   }
 }
