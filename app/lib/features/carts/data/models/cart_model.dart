@@ -7,7 +7,8 @@ class CartModel extends CartEntity {
     super.userId,
     super.status,
     super.total,
-    super.products
+    super.products,
+    super.shopId
   });
 
   factory CartModel.fromJson(Map<String, dynamic> json) {
@@ -17,6 +18,7 @@ class CartModel extends CartEntity {
     return CartModel(
       id: cartData['id'] ?? 0,
       userId: cartData['user_id'] ?? 0,
+      shopId: cartData['shop_id'] ?? 0,
       status: cartData['status'] ?? '',
       total: cartData['total'] ?? 0,
       products: cartProducts.map((product) => CartProductModel.fromJson(product)).toList()
@@ -27,6 +29,7 @@ class CartModel extends CartEntity {
     return {
       'id': id,
       'user_id': userId,
+      'shop_id': shopId,
       'status': status,
       'total': total,
     };
@@ -36,6 +39,7 @@ class CartModel extends CartEntity {
     return CartEntity(
       id: id,
       userId: userId,
+      shopId: shopId,
       status: status,
       total: total,
       products: products
