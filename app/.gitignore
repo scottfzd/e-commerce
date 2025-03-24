@@ -51,3 +51,7 @@ app.*.map.json
 **/generated_plugin_registrant.*
 **/GeneratedPluginRegistrant.*
 **/generated_plugins.cmake
+
+
+# Mockito auto generated files
+./test/**.mocks.dart
