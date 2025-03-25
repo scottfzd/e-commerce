@@ -1,3 +1,4 @@
+import 'package:app/core/error/failures.dart';
 import 'package:app/features/auth/domain/entities/user_entity.dart';
 import 'package:app/features/carts/domain/entities/cart_entity.dart';
 import 'package:app/features/carts/domain/repositories/cart_repository.dart';
@@ -53,6 +54,21 @@ void main() {
 
     // assert
     expect(result, equals(Right(cart)));
+    verify(mockCartRepository.getMyCart(shopId)).called(1);
+
+  });
+
+
+  const error = ServerFailure('Resource Not found', 404);
+
+  test('should return Failure when get open cart associated with current shop fails', () async {
+
+    when(mockCartRepository.getMyCart(shopId)).thenAnswer((_) async => const Left(error));
+
+    final result = await getMyCartUsecase(shopId);
+
+    // assert
+    expect(result, equals(const Left(error)));
     verify(mockCartRepository.getMyCart(shopId)).called(1);
 
   });
