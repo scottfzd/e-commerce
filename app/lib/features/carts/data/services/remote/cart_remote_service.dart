@@ -11,8 +11,7 @@ abstract class CartRemoteService {
       int shopId, String barcode, int quantity);
   Future<Either<Failure, Response>> updateProductQuantity(
       int shopId, String barcode, int quantity);
-  Future<Either<Failure, Response>> removeProductFromCart(
-      int shopId, String barcode);
+  Future<Either<Failure, Response>> removeProductFromCart(int cartProductId);
   Future<Either<Failure, Response>> clearCart(int shopId);
 }
 
@@ -100,11 +99,10 @@ class CartRemoteServiceImpl extends CartRemoteService {
 
   @override
   Future<Either<Failure, Response>> removeProductFromCart(
-      int shopId, String barcode) async {
+      int cartProductId) async {
     try {
-      var response = await sl<DioClient>().delete(
-        '${Constants.cartProductURL}/$shopId',
-        data: {'barcode': barcode},
+      final response = await sl<DioClient>().delete(
+        '${Constants.cartProductURL}/$cartProductId',
       );
       return Right(response);
     } on DioException catch (e) {

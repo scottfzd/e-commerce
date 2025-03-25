@@ -73,6 +73,12 @@ class _ShopsPageState extends State<ShopsPage> {
             shops = state.shops;
           }
 
+          if (_shopIdSelected == '' && shops.isNotEmpty) {
+            _shopIdSelected = shops.first.id.toString();
+            sl<SharedPreferences>().setString('shopId', _shopIdSelected!);
+            context.read<ShopsCubit>().selectShop(shops.first);
+          }
+
           return ListView.builder(
             controller: _scrollController,
             itemCount: shops.length + 1,

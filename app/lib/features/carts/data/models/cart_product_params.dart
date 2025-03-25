@@ -6,6 +6,6 @@ class CartProductParams {
   const CartProductParams({
     required this.shopId,
     required this.barcode,
-    required this.quantity,
+    this.quantity = 0,
   });
 }

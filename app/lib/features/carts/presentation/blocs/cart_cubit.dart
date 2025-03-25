@@ -2,6 +2,7 @@ import 'package:app/core/error/failures.dart';
 import 'package:app/features/carts/cart_service_locator.dart';
 import 'package:app/features/carts/domain/entities/cart_entity.dart';
 import 'package:app/features/carts/domain/usecases/get_my_cart_usecase.dart';
+import 'package:app/features/carts/domain/usecases/remove_product_from_cart_usecase.dart';
 import 'package:app/features/carts/presentation/blocs/cart_state.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +43,22 @@ class CartCubit extends Cubit<CartState> {
     );
 
     _isFetching = false;
+  }
+
+  Future<void> removeProductFromCart(int cartProductId) async {
+    emit(CartLoading());
+
+    final Either<Failure, bool> result =
+        await sl<RemoveProductFromCartUsecase>().call(cartProductId);
+
+    result.fold(
+      (failure) {
+        emit(CartError(_mapFailureToMessage(failure)));
+      },
+      (res) {
+        fetchCart();
+      },
+    );
   }
 
   String _mapFailureToMessage(Failure failure) {

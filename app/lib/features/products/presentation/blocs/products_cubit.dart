@@ -3,7 +3,6 @@ import 'package:app/features/auth/auth_service_locator.dart';
 import 'package:app/features/carts/data/models/cart_product_params.dart';
 import 'package:app/features/carts/domain/repositories/cart_repository.dart';
 import 'package:app/features/carts/domain/usecases/add_product_cart_usecase.dart';
-import 'package:app/features/carts/domain/usecases/remove_product_from_cart_usecase.dart';
 import 'package:app/features/carts/domain/usecases/update_product_quantity_usecase.dart';
 import 'package:app/features/products/domain/entities/product_by_shop_id.dart';
 import 'package:app/features/products/domain/entities/product_entity.dart';
@@ -131,6 +130,7 @@ class ProductsCubit extends Cubit<ProductsState> {
       },
       (_) {
         emit(ProductAdded(product));
+        emit(ProductsLoaded(_allProducts));
       },
     );
   }
@@ -156,29 +156,7 @@ class ProductsCubit extends Cubit<ProductsState> {
       },
       (_) {
         emit(ProductAdded(product));
-      },
-    );
-  }
-
-  Future<void> removeProductFromCart(ProductEntity product) async {
-    emit(ProductsLoading());
-
-    if (shopId == 0) {
-      emit(ProductsError('Shop ID not found'));
-      return;
-    }
-
-    final result =
-        await RemoveProductFromCartUsecase(cartRepository: sl<CartRepository>())
-            .call(CartProductParams(
-                shopId: shopId, barcode: product.barcode, quantity: 1));
-
-    result.fold(
-      (failure) {
-        emit(ProductsError(_mapFailureToMessage(failure)));
-      },
-      (_) {
-        emit(ProductRemoved(product));
+        emit(ProductsLoaded(_allProducts));
       },
     );
   }

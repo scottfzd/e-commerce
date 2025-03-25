@@ -51,16 +51,14 @@ class CartRepositoryImpl extends CartRepository {
   }
 
   @override
-  Future<Either<Failure, CartProductEntity>> removeProductFromCart(
-      int shopId, String barcode) async {
+  Future<Either<Failure, bool>> removeProductFromCart(int cartProductId) async {
     Either result =
-        await sl<CartRemoteService>().removeProductFromCart(shopId, barcode);
+        await sl<CartRemoteService>().removeProductFromCart(cartProductId);
 
     return result.fold((error) {
       return Left(error);
     }, (data) async {
-      Response response = data;
-      return Right(CartProductModel.fromJson(response.data).toEntity());
+      return const Right(true);
     });
   }
 

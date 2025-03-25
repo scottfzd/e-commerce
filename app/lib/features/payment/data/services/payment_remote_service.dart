@@ -44,9 +44,7 @@ class PaymentRemoteServiceImpl extends PaymentRemoteService {
     try {
       Response response = await sl<DioClient>().post(
         '${Constants.paymentURL}/capture/${paypalCallbackParams.shopId}',
-        data: {
-          'token': paypalCallbackParams.token,
-        },
+        data: paypalCallbackParams.toJson(),
       );
 
       return Right(response);

@@ -9,7 +9,6 @@ abstract class CartRepository {
       int shopId, String barcode, int quantity);
   Future<Either<Failure, CartProductEntity>> updateProduct(
       int shopId, String barcode, int quantity);
-  Future<Either<Failure, CartProductEntity>> removeProductFromCart(
-      int shopId, String barcode);
+  Future<Either<Failure, bool>> removeProductFromCart(int cartProductId);
   Future<Either<Failure, bool>> clearCart(int shopId);
 }

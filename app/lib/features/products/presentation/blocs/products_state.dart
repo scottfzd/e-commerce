@@ -35,9 +35,9 @@ class ProductUpdated extends ProductsState {
 }
 
 class ProductRemoved extends ProductsState {
-  final ProductEntity product;
+  final bool removed;
 
-  ProductRemoved(this.product);
+  ProductRemoved(this.removed);
 }
 
 class ProductsError extends ProductsState {

@@ -5,6 +5,7 @@ import 'package:app/features/auth/presentation/bloc/auth_state.dart';
 import 'package:app/features/auth/presentation/pages/login_page.dart';
 import 'package:app/features/home/presentation/blocs/bottom_navigation_bloc.dart';
 import 'package:app/features/home/presentation/pages/home_page.dart';
+import 'package:app/features/payment/presentation/blocs/payment_cubit.dart';
 import 'package:app/features/profile/presentation/blocs/language_bloc.dart';
 import 'package:app/features/theme/presentation/bloc/theme_cubit.dart';
 import 'package:app/service_locator.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => BottomNavigationBloc(),
+        ),
+        BlocProvider(
+          create: (context) => PaymentCubit(),
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(

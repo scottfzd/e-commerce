@@ -12,8 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit() : super(PaymentLoading());
 
-  String? _orderId;
-
   int get shopId {
     String? shopIdString = sl<SharedPreferences>().getString('shopId');
 
@@ -24,7 +22,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     return int.parse(shopIdString);
   }
 
-  String? get orderId => _orderId;
+  String? get orderId => sl<SharedPreferences>().getString('orderId');
 
   Future<void> getWebviewUrl() async {
     emit(PaymentLoading());
@@ -36,7 +34,8 @@ class PaymentCubit extends Cubit<PaymentState> {
         emit(PaymentError(_mapFailureToMessage(failure)));
       },
       (paypalWebviewResponse) {
-        _orderId = paypalWebviewResponse.orderId;
+        sl<SharedPreferences>()
+            .setString('orderId', paypalWebviewResponse.orderId);
         emit(PaymentUrlLoaded(paypalWebviewResponse));
       },
     );
@@ -49,7 +48,7 @@ class PaymentCubit extends Cubit<PaymentState> {
         return;
       }
 
-      if (_orderId == null) {
+      if (orderId == null) {
         emit(PaymentError('Order ID not found'));
         return;
       }
@@ -57,7 +56,7 @@ class PaymentCubit extends Cubit<PaymentState> {
       emit(PaymentLoading());
       final Either<Failure, bool> result = await sl<PostPaypalCallbackUsecase>()
           .call(PaypalCallbackParams(
-              shopId: shopId, token: token, orderId: _orderId!));
+              shopId: shopId, token: token, orderId: orderId!));
 
       result.fold(
         (failure) {

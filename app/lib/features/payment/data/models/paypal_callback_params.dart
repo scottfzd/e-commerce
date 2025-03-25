@@ -11,8 +11,7 @@ class PaypalCallbackParams {
 
   Map<String, dynamic> toJson() {
     return {
-      'shop_id': shopId,
-      'order_id': orderId,
+      'orderId': orderId,
       'token': token,
     };
   }

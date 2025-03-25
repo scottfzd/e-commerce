@@ -1,9 +1,6 @@
 import 'package:app/features/payment/presentation/pages/payment_page.dart';
 import 'package:app/shared/widgets/image_from_url_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:app/service_locator.dart';
-import 'package:app/features/cart_products/domain/repositories/cart_product_repository.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:app/features/carts/presentation/blocs/cart_cubit.dart';
 import 'package:app/features/carts/presentation/blocs/cart_state.dart';
@@ -24,8 +21,12 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit()..fetchCart(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CartCubit()..fetchCart(),
+        ),
+      ],
       child: Scaffold(
         body: BlocBuilder<CartCubit, CartState>(
           builder: (context, state) {
@@ -93,22 +94,11 @@ class _CartPageState extends State<CartPage> {
                                           ),
                                           TextButton(
                                             onPressed: () async {
-                                              final result = await sl<
-                                                      CartProductRepository>()
+                                              await context
+                                                  .read<CartCubit>()
                                                   .removeProductFromCart(
-                                                      product.id!);
-
-                                              result.fold(
-                                                (failure) {
-                                                  Fluttertoast.showToast(
-                                                      msg:
-                                                          'Erreur: Article non supprimé');
-                                                },
-                                                (success) {
-                                                  Fluttertoast.showToast(
-                                                      msg: 'Article supprimé');
-                                                },
-                                              );
+                                                    product.id!,
+                                                  );
                                             },
                                             style: TextButton.styleFrom(
                                               foregroundColor: Colors.black,

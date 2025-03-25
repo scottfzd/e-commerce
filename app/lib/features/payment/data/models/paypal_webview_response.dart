@@ -11,7 +11,7 @@ class PaypalWebviewResponse extends Equatable {
 
   factory PaypalWebviewResponse.fromJson(Map<String, dynamic> json) {
     return PaypalWebviewResponse(
-      orderId: json['order_id'],
+      orderId: json['orderId'],
       url: json['url'],
     );
   }

@@ -66,7 +66,6 @@ class ShopsCubit extends Cubit<ShopsState> {
     }
   }
 
-
   void selectShop(ShopEntity shop) async {
     await sl<FlutterSecureStorage>().write(key: 'shopName', value: shop.name);
     emit(ShopSelected(shop, shop.name, _allShops));
