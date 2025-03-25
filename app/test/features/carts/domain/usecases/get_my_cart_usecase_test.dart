@@ -1,6 +1,8 @@
+import 'package:app/features/auth/domain/entities/user_entity.dart';
 import 'package:app/features/carts/domain/entities/cart_entity.dart';
 import 'package:app/features/carts/domain/repositories/cart_repository.dart';
 import 'package:app/features/carts/domain/usecases/get_my_cart_usecase.dart';
+import 'package:app/features/shops/domain/entities/shop_entity.dart';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,7 +15,26 @@ void main() {
 
   late GetMyCartUsecase getMyCartUsecase;
   late MockCartRepository mockCartRepository;
-  const cart = CartEntity();
+
+
+
+  UserEntity user1 = const UserEntity(
+    id: 1
+  );
+
+  ShopEntity shop1 = const ShopEntity(
+    id: 1,
+    name: 'Monoprix'
+  );
+
+  CartEntity cart = CartEntity(
+    id: 1,
+    userId: user1.id,
+    shopId: shop1.id,
+    status: 'open',
+    total: 10.00
+  );
+
   const int shopId = 1;
   
   setUp(() {
@@ -26,13 +47,12 @@ void main() {
 
   test('should get open cart associated with current shop', () async {
 
-    when(mockCartRepository.getMyCart(shopId)).thenAnswer((_) async => const Right(cart));
+    when(mockCartRepository.getMyCart(shopId)).thenAnswer((_) async => Right(cart));
 
     final result = await getMyCartUsecase(shopId);
 
-
     // assert
-    expect(result, equals(const Right(cart)));
+    expect(result, equals(Right(cart)));
     verify(mockCartRepository.getMyCart(shopId)).called(1);
 
   });
