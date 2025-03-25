@@ -85,7 +85,7 @@
         "description": "Panier vide"
     },
     "remove_item": "Supprimer",
-    "@empty_cart": {
+    "@remove_item": {
         "description": "Supprimer"
     },
     "subtotal": "Sous-total",
@@ -104,9 +104,9 @@
     "@validate_cart": {
         "description": "Valider le panier"
     },
-    "quantity": "Qté",
+    "quantity": "Quantité",
     "@quantity": {
-        "description": "Qté"
+        "description": "Quantité"
     },
     "price": "Prix",
     "@price": {

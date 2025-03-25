@@ -65,18 +65,21 @@ class _ShopsPageState extends State<ShopsPage> {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ShopsLoaded) {
             shops = state.shops;
+
+            if (_shopIdSelected == '' && shops.isNotEmpty) {
+              _shopIdSelected = shops.first.id.toString();
+              sl<SharedPreferences>().setString('shopId', _shopIdSelected!);
+              context.read<ShopsCubit>().selectShop(shops.first);
+            } else {
+              context.read<ShopsCubit>().selectShop(shops
+                  .firstWhere((shop) => shop.id.toString() == _shopIdSelected));
+            }
           } else if (state is ShopsLoadingMore) {
             shops = state.shops;
           } else if (state is ShopsError) {
             return Center(child: Text(state.message));
           } else if (state is ShopSelected) {
             shops = state.shops;
-          }
-
-          if (_shopIdSelected == '' && shops.isNotEmpty) {
-            _shopIdSelected = shops.first.id.toString();
-            sl<SharedPreferences>().setString('shopId', _shopIdSelected!);
-            context.read<ShopsCubit>().selectShop(shops.first);
           }
 
           return ListView.builder(

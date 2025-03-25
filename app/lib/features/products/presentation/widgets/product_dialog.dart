@@ -6,15 +6,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ProductDialog extends StatelessWidget {
+class ProductDialog extends StatefulWidget {
   final ProductEntity product;
 
   const ProductDialog({super.key, required this.product});
+  @override
+  State<ProductDialog> createState() => _ProductDialogState();
+}
+
+class _ProductDialogState extends State<ProductDialog> {
+  int selectedQuantity = 1;
+
+  void quantityChanged(int newQuantity) {
+    setState(() {
+      selectedQuantity = newQuantity;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(product.name!),
+      title: Text(widget.product.name!),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -22,13 +34,16 @@ class ProductDialog extends StatelessWidget {
             SizedBox(
               width: 250,
               height: 250,
-              child: ImageFromUrlWidget(imageUrl: product.picture ?? ''),
+              child: ImageFromUrlWidget(imageUrl: widget.product.picture ?? ''),
             ),
             const SizedBox(height: 8),
-            QuantitySelector(quantity: product.stock?.quantity ?? 1),
+            QuantitySelector(
+              quantity: widget.product.stock?.quantity ?? 1,
+              onChanged: quantityChanged,
+            ),
             const SizedBox(height: 8),
             Text(
-                '${AppLocalizations.of(context)!.price} : ${product.stock!.price.toString()} €'),
+                '${AppLocalizations.of(context)!.price} : ${widget.product.stock!.price.toString()} €'),
           ],
         ),
       ),
@@ -47,7 +62,9 @@ class ProductDialog extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                context.read<ProductsCubit>().addProductToCart(product, 1);
+                context
+                    .read<ProductsCubit>()
+                    .addProductToCart(widget.product, selectedQuantity);
                 Navigator.of(context).pop();
               },
               child: Text(AppLocalizations.of(context)!.add_to_cart),

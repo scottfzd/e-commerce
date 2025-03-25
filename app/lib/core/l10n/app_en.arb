@@ -104,9 +104,9 @@
     "@validate_cart": {
         "description": "Validate cart"
     },
-    "quantity": "Qty",
+    "quantity": "Quantity",
     "@quantity": {
-        "description": "Qty"
+        "description": "Quantity"
     },
     "price": "Price",
     "@price": {

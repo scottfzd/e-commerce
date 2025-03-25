@@ -94,6 +94,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     result.fold(
       (failure) {
         emit(ProductError(_mapFailureToMessage(failure)));
+        emit(ProductsLoaded(_allProducts));
       },
       (product) {
         // Check if the product is already in the list

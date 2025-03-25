@@ -1,7 +1,9 @@
 import 'package:app/core/error/failures.dart';
+import 'package:app/features/invoices/data/models/invoice_detailed_model.dart';
 import 'package:app/features/invoices/data/models/invoice_model.dart';
 import 'package:app/features/invoices/data/models/invoices_pagination_model.dart';
 import 'package:app/features/invoices/data/services/invoice_remote_service.dart';
+import 'package:app/features/invoices/domain/entities/invoice_detailed_entity.dart';
 import 'package:app/features/invoices/domain/entities/invoice_entity.dart';
 import 'package:app/features/invoices/domain/entities/invoices_pagination_entity.dart';
 import 'package:app/features/invoices/domain/repositories/invoice_repository.dart';
@@ -36,13 +38,13 @@ class InvoiceRepositoryImpl extends InvoiceRepository {
   }
 
   @override
-  Future<Either<Failure, InvoiceEntity>> getInvoiceById(int id) async {
+  Future<Either<Failure, InvoiceDetailedEntity>> getInvoiceById(int id) async {
     Either result = await sl<InvoiceRemoteService>().getInvoiceById(id);
     return result.fold((error) {
       return Left(error);
     }, (data) async {
       Response response = data;
-      return Right(InvoiceModel.fromJson(response.data).toEntity());
+      return Right(InvoiceDetailedModel.fromJson(response.data).toEntity());
     });
   }
 

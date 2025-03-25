@@ -8,7 +8,7 @@ class InvoiceEntity extends Equatable {
   final double? total;
   final String? paymentStatus;
   final String? orderStatus;
-  final DateTime? orderedDate;
+  final String? orderedDate;
 
   const InvoiceEntity({
     this.id,

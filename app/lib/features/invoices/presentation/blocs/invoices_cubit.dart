@@ -1,5 +1,7 @@
+import 'package:app/features/invoices/domain/entities/invoice_detailed_entity.dart';
 import 'package:app/features/invoices/domain/entities/invoice_entity.dart';
 import 'package:app/features/invoices/domain/entities/invoices_pagination_entity.dart';
+import 'package:app/features/invoices/domain/usecases/get_invoice_by_id_usecase.dart';
 import 'package:app/features/invoices/domain/usecases/get_invoices_usecase.dart';
 import 'package:app/service_locator.dart';
 import 'package:app/shared/models/pagination_params_model.dart';
@@ -50,6 +52,22 @@ class InvoicesCubit extends Cubit<InvoicesState> {
     );
 
     _isFetching = false;
+  }
+
+  Future<void> fetchInvoiceCart(int cartId) async {
+    emit(InvoiceDetailedLoading());
+
+    final Either<Failure, InvoiceDetailedEntity> result =
+        await sl<GetInvoiceByIdUsecase>().call(cartId);
+
+    result.fold(
+      (failure) {
+        emit(InvoiceDetailedError(_mapFailureToMessage(failure)));
+      },
+      (invoice) {
+        emit(InvoiceDetailedLoaded(invoice));
+      },
+    );
   }
 
   void loadNextPage() {

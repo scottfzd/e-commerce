@@ -2,14 +2,13 @@ import 'package:app/features/cart_products/data/models/cart_product_model.dart';
 import 'package:app/features/carts/domain/entities/cart_entity.dart';
 
 class CartModel extends CartEntity {
-  const CartModel({
-    super.id,
-    super.userId,
-    super.status,
-    super.total,
-    super.products,
-    super.shopId
-  });
+  const CartModel(
+      {super.id,
+      super.userId,
+      super.status,
+      super.total,
+      super.products,
+      super.shopId});
 
   factory CartModel.fromJson(Map<String, dynamic> json) {
     final cartData = json['cart'] ?? {};
@@ -18,7 +17,9 @@ class CartModel extends CartEntity {
         id: cartData['id'] ?? 0,
         userId: cartData['user_id'] ?? 0,
         status: cartData['status'] ?? '',
-        total: (cartData['total'] as num).toDouble(),
+        total: cartData['total'] != null
+            ? (cartData['total'] as num).toDouble()
+            : 0.0,
         products: cartProducts
             .map((product) => CartProductModel.fromJson(product))
             .toList());
@@ -36,12 +37,11 @@ class CartModel extends CartEntity {
 
   CartEntity toEntity() {
     return CartEntity(
-      id: id,
-      userId: userId,
-      shopId: shopId,
-      status: status,
-      total: total,
-      products: products
-    );
+        id: id,
+        userId: userId,
+        shopId: shopId,
+        status: status,
+        total: total,
+        products: products);
   }
 }

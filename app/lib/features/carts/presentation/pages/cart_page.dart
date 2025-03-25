@@ -1,5 +1,5 @@
+import 'package:app/features/cart_products/presentation/widgets/cart_product_card_widget.dart';
 import 'package:app/features/payment/presentation/pages/payment_page.dart';
-import 'package:app/shared/widgets/image_from_url_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:app/features/carts/presentation/blocs/cart_cubit.dart';
@@ -50,72 +50,9 @@ class _CartPageState extends State<CartPage> {
                         itemCount: cartProducts.length,
                         itemBuilder: (context, index) {
                           var product = cartProducts[index];
-                          return Container(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: Card(
-                              margin:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              child: Container(
-                                height: 200,
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 10),
-                                      height: 140,
-                                      width: 140,
-                                      child: ImageFromUrlWidget(
-                                        imageUrl:
-                                            product.product!.picture ?? '',
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 200,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(product.product!.name!),
-                                              Text(product.product!.brands!),
-                                              if (product.product!.categories !=
-                                                  null)
-                                                Text(product
-                                                    .product!.categories!),
-                                              Text(
-                                                  '${AppLocalizations.of(context)!.quantity}: ${product.quantity}'),
-                                              Text('${product.price} €'),
-                                            ],
-                                          ),
-                                          TextButton(
-                                            onPressed: () async {
-                                              await context
-                                                  .read<CartCubit>()
-                                                  .removeProductFromCart(
-                                                    product.id!,
-                                                  );
-                                            },
-                                            style: TextButton.styleFrom(
-                                              foregroundColor: Colors.black,
-                                              padding: EdgeInsets.zero,
-                                            ),
-                                            child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .remove_item,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                          return CartProductCardWidget(
+                            cartProduct: product,
+                            isModifiable: true,
                           );
                         },
                       ),
@@ -165,10 +102,6 @@ class _CartPageState extends State<CartPage> {
                           ),
                         );
                       },
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.black87,
-                      ),
                       child: Text(AppLocalizations.of(context)!.validate_cart),
                     ),
                   ),

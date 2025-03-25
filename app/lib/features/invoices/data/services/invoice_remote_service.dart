@@ -19,7 +19,7 @@ class InvoiceRemoteServiceImpl extends InvoiceRemoteService {
   Future<Either<Failure, Response>> getInvoices(int page, int limit) async {
     try {
       final response = await sl<DioClient>().get(
-        '${Constants.userURL}/me/invoices',
+        '${Constants.invoiceURL}/myInvoices',
         queryParameters: {
           'page': page,
           'limit': limit,

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/features/auth/auth_service_locator.dart';
+import 'package:app/features/home/presentation/pages/home_page.dart';
 import 'package:app/features/payment/presentation/blocs/payment_cubit.dart';
 import 'package:app/features/payment/presentation/blocs/payment_state.dart';
 import 'package:app/shared/widgets/webview_widget.dart';
@@ -67,8 +68,13 @@ class _PaymentPageState extends State<PaymentPage> {
                   actions: [
                     TextButton(
                       onPressed: () {
-                        Navigator.of(dialogContext).pop();
-                        Navigator.of(context).pop();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                          (route) => false,
+                        );
                       },
                       child: const Text('OK'),
                     ),
