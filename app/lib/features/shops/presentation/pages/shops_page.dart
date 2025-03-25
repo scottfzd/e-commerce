@@ -83,9 +83,13 @@ class _ShopsPageState extends State<ShopsPage> {
                     : const SizedBox.shrink();
               }
               final shop = shops[index];
+              final initial = shop.name![0].toUpperCase();
+
               return ListTile(
-                title: Text(shop.id.toString()),
-                subtitle: Text(shop.name!),
+                leading: CircleAvatar(
+                  child: Text(initial),
+                ),
+                title: Text(shop.name!),
                 selected: shop.id.toString() == _shopIdSelected,
                 onTap: () {
                   sl<SharedPreferences>()
@@ -95,6 +99,9 @@ class _ShopsPageState extends State<ShopsPage> {
                   });
                   context.read<ShopsCubit>().selectShop(shop);
                 },
+                trailing: shop.id.toString() == _shopIdSelected
+                    ? const Icon(Icons.check)
+                    : null,
               );
             },
           );

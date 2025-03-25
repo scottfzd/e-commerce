@@ -1,8 +1,13 @@
 import 'package:app/core/error/failures.dart';
 import 'package:app/features/auth/auth_service_locator.dart';
+import 'package:app/features/carts/data/models/cart_product_params.dart';
+import 'package:app/features/carts/domain/repositories/cart_repository.dart';
+import 'package:app/features/carts/domain/usecases/add_product_cart_usecase.dart';
+import 'package:app/features/carts/domain/usecases/remove_product_from_cart_usecase.dart';
+import 'package:app/features/carts/domain/usecases/update_product_quantity_usecase.dart';
 import 'package:app/features/products/domain/entities/product_by_shop_id.dart';
 import 'package:app/features/products/domain/entities/product_entity.dart';
-import 'package:app/features/products/domain/entities/products_by_shop_id_entity.dart';
+import 'package:app/features/products/data/models/get_products_by_shop_id_params.dart';
 import 'package:app/features/products/domain/entities/products_pagination_entity.dart';
 import 'package:app/features/products/domain/usecases/get_product_by_shop_id_usecase.dart';
 import 'package:app/features/products/domain/usecases/get_products_by_shop_id_usecase.dart';
@@ -20,6 +25,16 @@ class ProductsCubit extends Cubit<ProductsState> {
   bool _isFetching = false;
   List<ProductEntity> _allProducts = [];
 
+  int get shopId {
+    String? shopIdString = sl<SharedPreferences>().getString('shopId');
+
+    if (shopIdString == null) {
+      return 0;
+    }
+
+    return int.parse(shopIdString);
+  }
+
   Future<void> fetchProducts({int page = 1, int limit = 20}) async {
     if (_isFetching || page > _totalPages) return;
 
@@ -30,14 +45,10 @@ class ProductsCubit extends Cubit<ProductsState> {
       emit(ProductsLoadingMore(_allProducts));
     }
 
-    String? shopIdString = sl<SharedPreferences>().getString('shopId');
-
-    if (shopIdString == null) {
+    if (shopId == 0) {
       emit(ProductsError('Shop ID not found'));
       return;
     }
-
-    int shopId = int.parse(shopIdString);
 
     final Either<Failure, ProductsPaginationEntity> result =
         await sl<GetProductsByShopIdUsecase>().call(GetProductsByShopIdParams(
@@ -72,14 +83,10 @@ class ProductsCubit extends Cubit<ProductsState> {
   Future<void> fetchProductByBarcode(String barcode) async {
     emit(ProductsLoading());
 
-    String? shopIdString = sl<SharedPreferences>().getString('shopId');
-
-    if (shopIdString == null) {
+    if (shopId == 0) {
       emit(ProductsError('Shop ID not found'));
       return;
     }
-
-    int shopId = int.parse(shopIdString);
 
     final Either<Failure, ProductEntity> result =
         await sl<GetProductByShopIdUsecase>()
@@ -100,6 +107,78 @@ class ProductsCubit extends Cubit<ProductsState> {
 
         emit(ProductLoaded(product));
         emit(ProductsLoaded(_allProducts));
+      },
+    );
+  }
+
+  Future<void> addProductToCart(ProductEntity product, int quantity) async {
+    emit(ProductsLoading());
+
+    if (shopId == 0) {
+      emit(ProductsError('Shop ID not found'));
+      return;
+    }
+
+    final result =
+        await AddProductCartUsecase(cartRepository: sl<CartRepository>()).call(
+      CartProductParams(
+          shopId: shopId, barcode: product.barcode, quantity: quantity),
+    );
+
+    result.fold(
+      (failure) {
+        emit(ProductsError(_mapFailureToMessage(failure)));
+      },
+      (_) {
+        emit(ProductAdded(product));
+      },
+    );
+  }
+
+  Future<void> updateProductToCart(ProductEntity product, int quantity) async {
+    emit(ProductsLoading());
+
+    if (shopId == 0) {
+      emit(ProductsError('Shop ID not found'));
+      return;
+    }
+
+    final result =
+        await UpdateProductQuantityUsecase(cartRepository: sl<CartRepository>())
+            .call(
+      CartProductParams(
+          shopId: shopId, barcode: product.barcode, quantity: quantity),
+    );
+
+    result.fold(
+      (failure) {
+        emit(ProductsError(_mapFailureToMessage(failure)));
+      },
+      (_) {
+        emit(ProductAdded(product));
+      },
+    );
+  }
+
+  Future<void> removeProductFromCart(ProductEntity product) async {
+    emit(ProductsLoading());
+
+    if (shopId == 0) {
+      emit(ProductsError('Shop ID not found'));
+      return;
+    }
+
+    final result =
+        await RemoveProductFromCartUsecase(cartRepository: sl<CartRepository>())
+            .call(CartProductParams(
+                shopId: shopId, barcode: product.barcode, quantity: 1));
+
+    result.fold(
+      (failure) {
+        emit(ProductsError(_mapFailureToMessage(failure)));
+      },
+      (_) {
+        emit(ProductRemoved(product));
       },
     );
   }

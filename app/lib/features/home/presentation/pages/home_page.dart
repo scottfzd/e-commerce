@@ -1,6 +1,8 @@
+import 'package:app/features/carts/presentation/blocs/cart_cubit.dart';
 import 'package:app/features/carts/presentation/pages/cart_page.dart';
 import 'package:app/features/invoices/presentation/blocs/invoices_cubit.dart';
 import 'package:app/features/invoices/presentation/pages/invoices_page.dart';
+import 'package:app/features/products/presentation/blocs/products_cubit.dart';
 import 'package:app/features/profile/presentation/pages/profile_page.dart';
 import 'package:app/features/products/presentation/pages/products_page.dart';
 import 'package:app/features/shops/presentation/blocs/shops_cubit.dart';
@@ -31,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<BottomNavigationBloc>(
+        BlocProvider(
           create: (context) => BottomNavigationBloc(),
         ),
         BlocProvider(
@@ -39,6 +41,12 @@ class _HomePageState extends State<HomePage> {
         ),
         BlocProvider(
           create: (context) => InvoicesCubit()..fetchInvoices(),
+        ),
+        BlocProvider(
+          create: (context) => ProductsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CartCubit(),
         ),
       ],
       child: Scaffold(
@@ -62,8 +70,9 @@ class _HomePageState extends State<HomePage> {
           builder: (context, currentIndex) {
             return BottomNavigationBar(
               currentIndex: currentIndex,
-              unselectedItemColor: Theme.of(context).primaryColorLight,
-              selectedItemColor: Theme.of(context).primaryColor,
+              selectedItemColor: Theme.of(context).colorScheme.primary,
+              unselectedItemColor: Theme.of(context).colorScheme.secondary,
+              showUnselectedLabels: true,
               onTap: (index) {
                 final event = BottomNavigationEvent.values[index];
                 context.read<BottomNavigationBloc>().add(event);

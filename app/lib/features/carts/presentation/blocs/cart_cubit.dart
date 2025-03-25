@@ -35,7 +35,10 @@ class CartCubit extends Cubit<CartState> {
       (failure) {
         emit(CartError(_mapFailureToMessage(failure)));
       },
-      (cart) {},
+      (cart) {
+        this.cart = cart;
+        emit(CartLoaded(cart));
+      },
     );
 
     _isFetching = false;

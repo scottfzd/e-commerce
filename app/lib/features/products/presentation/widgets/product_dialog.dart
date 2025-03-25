@@ -1,6 +1,10 @@
 import 'package:app/features/products/domain/entities/product_entity.dart';
+import 'package:app/features/products/presentation/blocs/products_cubit.dart';
 import 'package:app/shared/widgets/image_from_url_widget.dart';
+import 'package:app/shared/widgets/quantity_selector_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductDialog extends StatelessWidget {
   final ProductEntity product;
@@ -15,24 +19,40 @@ class ProductDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ImageFromUrlWidget(imageUrl: product.picture!),
+            SizedBox(
+              width: 250,
+              height: 250,
+              child: ImageFromUrlWidget(imageUrl: product.picture ?? ''),
+            ),
             const SizedBox(height: 8),
-            Text('Prix : ${product.stock!.price.toString()} €'),
+            QuantitySelector(quantity: product.stock?.quantity ?? 1),
+            const SizedBox(height: 8),
+            Text(
+                '${AppLocalizations.of(context)!.price} : ${product.stock!.price.toString()} €'),
           ],
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Fermer'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Ajouter au panier'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              style: const ButtonStyle(
+                foregroundColor: WidgetStatePropertyAll(Colors.red),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(AppLocalizations.of(context)!.close),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                context.read<ProductsCubit>().addProductToCart(product, 1);
+                Navigator.of(context).pop();
+              },
+              child: Text(AppLocalizations.of(context)!.add_to_cart),
+            ),
+          ],
         ),
       ],
     );

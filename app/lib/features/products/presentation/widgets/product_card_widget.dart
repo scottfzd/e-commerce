@@ -1,7 +1,9 @@
 import 'package:app/features/products/domain/entities/product_entity.dart';
+import 'package:app/features/products/presentation/blocs/products_cubit.dart';
 import 'package:app/features/products/presentation/widgets/product_dialog.dart';
 import 'package:app/shared/widgets/image_from_url_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductCardWidget extends StatelessWidget {
@@ -15,7 +17,12 @@ class ProductCardWidget extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (context) => ProductDialog(product: product),
+          builder: (dialogContext) {
+            return BlocProvider.value(
+              value: context.read<ProductsCubit>(),
+              child: ProductDialog(product: product),
+            );
+          },
         );
       },
       child: Card(

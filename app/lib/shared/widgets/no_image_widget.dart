@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class NoImageWidget extends StatelessWidget {
-  const NoImageWidget({super.key});
+  final double size;
+
+  const NoImageWidget({super.key, this.size = 50});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Icon(
-        Icons.image_not_supported,
-        size: 50,
-        color: Colors.grey,
-      ),
+    return Icon(
+      Icons.image_not_supported,
+      size: size,
+      color: Colors.grey,
     );
   }
 }
