@@ -23,7 +23,7 @@ test:
   before_script:
     - flutter --version
     - cd app
-    - echo "$BASE_URL" > .env 
+    - echo "BASE_URL=$BASE_URL" > .env 
     - flutter pub get
   script:
     - flutter test
@@ -39,4 +39,3 @@ deploy-apk:
     - aws s3 cp ./apk s3://$S3_BUCKET/ --recursive
   only:
     - main  # Deploy only on main branch
-    
