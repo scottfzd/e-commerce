@@ -22,6 +22,7 @@ test:
   image: ghcr.io/cirruslabs/flutter:latest
   before_script:
     - flutter --version
+    - cd app
     - flutter pub get
   script:
     - flutter test
