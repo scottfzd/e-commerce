@@ -19,8 +19,8 @@ stages:
 
 test:
   stage: test
+  image: ghcr.io/cirruslabs/flutter:latest
   before_script:
-    - docker pull ghcr.io/cirruslabs/flutter:3.29.2
     - flutter --version
     - flutter pub get
   script:
