@@ -1,5 +1,5 @@
 
-import 'package:app/features/invoices/domain/entities/invoice_entity.dart';
+import 'package:app/features/invoices/domain/entities/invoice_detailed_entity.dart';
 import 'package:app/features/invoices/domain/usecases/get_invoice_by_id_usecase.dart';
 import 'package:app/features/invoices/domain/repositories/invoice_repository.dart';
 
@@ -23,7 +23,7 @@ void main() {
   });
 
   const invoiceId = 10;
-  InvoiceEntity invoice = const InvoiceEntity();
+  InvoiceDetailedEntity invoice = const InvoiceDetailedEntity();
 
   test('should return invoice entity by id', () async {
 

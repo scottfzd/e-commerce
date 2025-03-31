@@ -6,8 +6,10 @@
 import 'dart:async' as _i4;
 
 import 'package:app/core/error/failures.dart' as _i5;
-import 'package:app/features/invoices/domain/entities/invoice_entity.dart'
+import 'package:app/features/invoices/domain/entities/invoice_detailed_entity.dart'
     as _i7;
+import 'package:app/features/invoices/domain/entities/invoice_entity.dart'
+    as _i8;
 import 'package:app/features/invoices/domain/entities/invoices_pagination_entity.dart'
     as _i6;
 import 'package:app/features/invoices/domain/repositories/invoice_repository.dart'
@@ -107,40 +109,40 @@ class MockInvoiceRepository extends _i1.Mock implements _i3.InvoiceRepository {
               .Future<_i2.Either<_i5.Failure, _i6.InvoicesPaginationEntity>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i7.InvoiceEntity>> getInvoiceById(
+  _i4.Future<_i2.Either<_i5.Failure, _i7.InvoiceDetailedEntity>> getInvoiceById(
           int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getInvoiceById,
           [id],
         ),
-        returnValue:
-            _i4.Future<_i2.Either<_i5.Failure, _i7.InvoiceEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i7.InvoiceEntity>(
+        returnValue: _i4
+            .Future<_i2.Either<_i5.Failure, _i7.InvoiceDetailedEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i7.InvoiceDetailedEntity>(
           this,
           Invocation.method(
             #getInvoiceById,
             [id],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.InvoiceEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.InvoiceDetailedEntity>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.Failure, _i7.InvoiceEntity>> createInvoice(
-          _i7.InvoiceEntity? invoice) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i8.InvoiceEntity>> createInvoice(
+          _i8.InvoiceEntity? invoice) =>
       (super.noSuchMethod(
         Invocation.method(
           #createInvoice,
           [invoice],
         ),
         returnValue:
-            _i4.Future<_i2.Either<_i5.Failure, _i7.InvoiceEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i7.InvoiceEntity>(
+            _i4.Future<_i2.Either<_i5.Failure, _i8.InvoiceEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i8.InvoiceEntity>(
           this,
           Invocation.method(
             #createInvoice,
             [invoice],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.InvoiceEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i8.InvoiceEntity>>);
 }
