@@ -123,32 +123,22 @@ class MockCartRepository extends _i1.Mock implements _i3.CartRepository {
       ) as _i4.Future<_i2.Either<_i5.Failure, _i7.CartProductEntity>>);
 
   @override
-  _i4.Future<
-      _i2.Either<_i5.Failure, _i7.CartProductEntity>> removeProductFromCart(
-    int? shopId,
-    String? barcode,
-  ) =>
+  _i4.Future<_i2.Either<_i5.Failure, bool>> removeProductFromCart(
+          int? cartProductId) =>
       (super.noSuchMethod(
         Invocation.method(
           #removeProductFromCart,
-          [
-            shopId,
-            barcode,
-          ],
+          [cartProductId],
         ),
-        returnValue:
-            _i4.Future<_i2.Either<_i5.Failure, _i7.CartProductEntity>>.value(
-                _FakeEither_0<_i5.Failure, _i7.CartProductEntity>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, bool>>.value(
+            _FakeEither_0<_i5.Failure, bool>(
           this,
           Invocation.method(
             #removeProductFromCart,
-            [
-              shopId,
-              barcode,
-            ],
+            [cartProductId],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.Failure, _i7.CartProductEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, bool>>);
 
   @override
   _i4.Future<_i2.Either<_i5.Failure, bool>> clearCart(int? shopId) =>

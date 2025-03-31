@@ -1,9 +1,6 @@
 import 'package:app/core/error/failures.dart';
-import 'package:app/features/cart_products/domain/entities/cart_product_entity.dart';
-import 'package:app/features/carts/data/models/cart_product_params.dart';
 import 'package:app/features/carts/domain/repositories/cart_repository.dart';
 import 'package:app/features/carts/domain/usecases/remove_product_from_cart_usecase.dart';
-import 'package:app/features/products/domain/entities/product_entity.dart';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -24,24 +21,17 @@ void main() {
     removeProductFromCartUsecase = RemoveProductFromCartUsecase(cartRepository: mockCartRepository);
   });
 
-
-  CartProductEntity cartProduct = const CartProductEntity(
-    id: 2,
-    product: ProductEntity(barcode: '1234567890123'),
-    quantity: 6
-  );
-
-  const CartProductParams cartProductParams = CartProductParams(shopId: 1, barcode: '1234567890123', quantity: 10);
+  const cartProductId = 18;
 
   test('should remove product from cart', () async {
 
-    when(mockCartRepository.removeProductFromCart(cartProductParams.shopId, cartProductParams.barcode)).thenAnswer((_) async => Right(cartProduct));
+    when(mockCartRepository.removeProductFromCart(cartProductId)).thenAnswer((_) async => const Right(true));
 
-    final result = await removeProductFromCartUsecase(cartProductParams);
+    final result = await removeProductFromCartUsecase(cartProductId);
 
     // assert
-    expect(result, equals(Right(cartProduct)));
-    verify(mockCartRepository.removeProductFromCart(cartProductParams.shopId, cartProductParams.barcode)).called(1);
+    expect(result, equals(const Right(true)));
+    verify(mockCartRepository.removeProductFromCart(cartProductId)).called(1);
 
   });
 
@@ -50,13 +40,13 @@ void main() {
 
     test('should remove a Failure when removing product from cart fails', () async {
 
-    when(mockCartRepository.removeProductFromCart(any, any)).thenAnswer((_) async => const Left(error));
+    when(mockCartRepository.removeProductFromCart(any)).thenAnswer((_) async => const Left(error));
 
-    final result = await removeProductFromCartUsecase(cartProductParams);
+    final result = await removeProductFromCartUsecase(cartProductId);
 
     // assert
     expect(result, equals(const Left(error)));
-    verify(mockCartRepository.removeProductFromCart(cartProductParams.shopId, cartProductParams.barcode)).called(1);
+    verify(mockCartRepository.removeProductFromCart(cartProductId)).called(1);
 
   });
 }
