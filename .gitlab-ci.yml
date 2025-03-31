@@ -23,7 +23,7 @@ test:
   before_script:
     - flutter --version
     - cd app
-    - echo "$ENV_FILE_CONTENT" > .env 
+    - echo "$BASE_URL" > .env 
     - flutter pub get
   script:
     - flutter test
