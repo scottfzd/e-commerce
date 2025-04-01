@@ -163,6 +163,8 @@ Dart : 3.5.4
 
 flutter pub get
 
+Download link: https://tdevapp.s3.eu-north-1.amazonaws.com/app-release.apk
+
 #### Commandes :
 
 - **Run project on emulator** : flutter run
