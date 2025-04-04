@@ -1,24 +1,7 @@
 stages:
-  # - test
-  # - build
   - test
+  - build
   - deploy
-
-# build:
-#   stage: build
-#   image: cirrusci/flutter:stable
-#   before_script:
-#     - flutter --version  # Verify Flutter version
-#     - flutter pub get    # Fetch dependencies
-#   script:
-#     - cd app             # Change to the app directory
-#     - flutter build apk  # Build APK
-#     - cd ..              # Return to the root directory
-#     - cp ./app/build/app/outputs/flutter-apk/app-release.apk ./apk/app-release.apk  # Copy APK to a common location
-#   artifacts:
-#     paths:
-#       - build/app/outputs/flutter-apk/app-release.apk  # Directly reference the output file
-#     expire_in: 1 week  # Keep for a week
 
 
 test:
@@ -34,6 +17,21 @@ test:
   script:
     - flutter test
 
+build:
+  stage: build
+  image: cirrusci/flutter:stable
+  before_script:
+    - flutter --version  # Verify Flutter version
+    - flutter pub get    # Fetch dependencies
+  script:
+    - cd app             # Change to the app directory
+    - flutter build apk  # Build APK
+    - cd ..              # Return to the root directory
+    - cp ./app/build/app/outputs/flutter-apk/app-release.apk ./apk/app-release.apk  # Copy APK to a common location
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/app-release.apk  # Directly reference the output file
+    expire_in: 1 week  # Keep for a week
 
 deploy-apk:
   tags:
@@ -44,6 +42,7 @@ deploy-apk:
     GIT_DEPTH: 0  # Forces a full clone
   script:
     - ls -la
+#    - cp ./build/app-release.apk ./apk/app-release.apk  # Copy APK to a common location
     - aws s3 cp ./apk s3://$S3_BUCKET/ --recursive
   only:
     - main  # Deploy only on main branch
