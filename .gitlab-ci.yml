@@ -19,7 +19,7 @@ test:
 
 build:
   stage: build
-  image: cirrusci/flutter:stable
+  image: cirrusci/flutter:latest
   before_script:
     - flutter --version  # Verify Flutter version
     - flutter upgrade  --force
