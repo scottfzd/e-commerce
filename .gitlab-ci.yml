@@ -22,7 +22,7 @@ build:
   image: cirrusci/flutter:latest
   before_script:
     - flutter --version  # Verify Flutter version
-    - flutter upgrade  --force
+    # - flutter upgrade  --force
     - cd app         # Change to the app directory
     - flutter pub get    # Fetch dependencies
   script:
