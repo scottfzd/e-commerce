@@ -22,6 +22,7 @@ build:
   image: cirrusci/flutter:stable
   before_script:
     - flutter --version  # Verify Flutter version
+    - cd app         # Change to the app directory
     - flutter pub get    # Fetch dependencies
   script:
     - cd app             # Change to the app directory
