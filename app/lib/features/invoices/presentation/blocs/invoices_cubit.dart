@@ -1,10 +1,13 @@
-import 'package:app/features/invoices/data/models/get_invoices_params.dart';
+import 'package:app/features/invoices/domain/entities/invoice_detailed_entity.dart';
 import 'package:app/features/invoices/domain/entities/invoice_entity.dart';
+import 'package:app/features/invoices/domain/entities/invoices_pagination_entity.dart';
+import 'package:app/features/invoices/domain/usecases/get_invoice_by_id_usecase.dart';
 import 'package:app/features/invoices/domain/usecases/get_invoices_usecase.dart';
 import 'package:app/service_locator.dart';
+import 'package:app/shared/models/pagination_params_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:app/features/invoices/domain/entities/invoices_page_entity.dart';
 import 'package:app/core/error/failures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'invoices_state.dart';
 
@@ -26,27 +29,45 @@ class InvoicesCubit extends Cubit<InvoicesState> {
       emit(InvoicesLoadingMore(_allInvoices));
     }
 
-    final Either<Failure, InvoicesPageEntity> result =
+    final Either<Failure, InvoicesPaginationEntity> result =
         await sl<GetInvoicesUsecase>()
-            .call(GetInvoicesParams(page: page, limit: limit));
+            .call(PaginationParams(page: page, limit: limit));
 
     result.fold(
       (failure) {
         emit(InvoicesError(_mapFailureToMessage(failure)));
       },
-      (invoicesPage) {
-        _currentPage = invoicesPage.currentPage;
-        _totalPages = invoicesPage.totalPages;
+      (invoicesPagination) {
+        _currentPage = invoicesPagination.pagination!.currentPage!;
+        _totalPages = invoicesPagination.pagination!.totalPages!;
+        debugPrint(_currentPage.toString());
+        debugPrint(_totalPages.toString());
         if (page == 1) {
-          _allInvoices = invoicesPage.invoices;
+          _allInvoices = invoicesPagination.invoices;
         } else {
-          _allInvoices.addAll(invoicesPage.invoices);
+          _allInvoices.addAll(invoicesPagination.invoices);
         }
         emit(InvoicesLoaded(_allInvoices));
       },
     );
 
     _isFetching = false;
+  }
+
+  Future<void> fetchInvoiceCart(int cartId) async {
+    emit(InvoiceDetailedLoading());
+
+    final Either<Failure, InvoiceDetailedEntity> result =
+        await sl<GetInvoiceByIdUsecase>().call(cartId);
+
+    result.fold(
+      (failure) {
+        emit(InvoiceDetailedError(_mapFailureToMessage(failure)));
+      },
+      (invoice) {
+        emit(InvoiceDetailedLoaded(invoice));
+      },
+    );
   }
 
   void loadNextPage() {

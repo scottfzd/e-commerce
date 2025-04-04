@@ -19,22 +19,22 @@ class InvoiceModel extends InvoiceEntity {
       cartId: json['cart'] ?? 0,
       shopId: json['shop'] ?? 0,
       total: json['total'] ?? 0.0,
-      paymentStatus: json['paymentStatus'] ?? '',
-      orderStatus: json['orderStatus'] ?? '',
-      orderedDate: json['orderedDate'] ?? DateTime.now(),
+      paymentStatus: json['payment_status'] ?? '',
+      orderStatus: json['order_status'] ?? '',
+      orderedDate: json['ordered_date'] ?? DateTime.now().toString(),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'userId': userId,
-      'cartId': cartId,
+      'user': userId,
+      'cart': cartId,
       'shop': shopId,
       'total': total,
-      'paymentStatus': paymentStatus,
-      'orderStatus': orderStatus,
-      'orderedDate': orderedDate,
+      'payment_status': paymentStatus,
+      'order_status': orderStatus,
+      'ordered_date': orderedDate,
     };
   }
 

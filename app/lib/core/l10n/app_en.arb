@@ -4,6 +4,14 @@
     "@home": {
         "description": "Home"
     },
+    "close": "Close",
+    "@close": {
+        "description": "Close"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Cancel"
+    },
     "scanner": "Scanner",
     "@scanner": {
         "description": "Scanner"
@@ -20,8 +28,88 @@
     "@invoices": {
         "description": "Invoices"
     },
+    "invoice": "Invoice",
+    "@invoice": {
+        "description": "Invoice"
+    },
     "profile": "Profile",
     "@profile": {
         "description": "Profile"
+    },
+    "shops": "Shops",
+    "@shops": {
+        "description": "Shops"
+    },
+    "shop": "Shop",
+    "@shop": {
+        "description": "Shop"
+    },
+    "products": "Products",
+    "@products": {
+        "description": "Products"
+    },
+    "product": "Product",
+    "@product": {
+        "description": "Product"
+    },
+    "in_stock": "In stock",
+    "@in_stock": {
+        "description": "In stock"
+    },
+    "out_of_stock": "Out of stock",
+    "@out_of_stock": {
+        "description": "Out of stock"
+    },
+    "add_to_cart": "Add to cart",
+    "@add_to_cart": {
+        "description": "Add to cart"
+    },
+    "no_content": "No content",
+    "@no_content": {
+        "description": "No content"
+    },
+    "no_products_found": "No products found",
+    "@no_products_found": {
+        "description": "No products found"
+    },
+    "no_shops_found": "No shops found",
+    "@no_shops_found": {
+        "description": "No shops found"
+    },
+    "no_invoices_found": "No invoices found",
+    "@no_invoices_found": {
+        "description": "No invoices found"
+    },
+    "empty_cart": "Empty cart",
+    "@empty_cart": {
+        "description": "Empty cart"
+    },
+    "remove_item": "Remove item",
+    "@remove_item": {
+        "description": "Remove item"
+    },
+    "subtotal": "Subtotal",
+    "@subtotal": {
+        "description": "Subtotal"
+    },
+    "delivery_fee": "Delivery",
+    "@delivery_fee": {
+        "description": "Delivery"
+    },
+    "free_delivery": "Free",
+    "@free_delivery": {
+        "description": "Free"
+    },
+    "validate_cart": "Validate cart",
+    "@validate_cart": {
+        "description": "Validate cart"
+    },
+    "quantity": "Quantity",
+    "@quantity": {
+        "description": "Quantity"
+    },
+    "price": "Price",
+    "@price": {
+        "description": "Price"
     }
 }

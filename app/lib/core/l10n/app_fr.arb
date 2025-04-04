@@ -4,6 +4,14 @@
     "@home": {
         "description": "Accueil"
     },
+    "close": "Fermer",
+    "@close": {
+        "description": "Fermer"
+    },
+    "cancel": "Annuler",
+    "@cancel": {
+        "description": "Annuler"
+    },
     "scanner": "Scanner",
     "@scanner": {
         "description": "Scanner"
@@ -20,8 +28,88 @@
     "@invoices": {
         "description": "Factures"
     },
+    "invoice": "Facture",
+    "@invoice": {
+        "description": "Facture"
+    },
     "profile": "Profil",
     "@profile": {
         "description": "Profil"
+    },
+    "shops": "Magasins",
+    "@shops": {
+        "description": "Magasins"
+    },
+    "shop": "Magasin",
+    "@shop": {
+        "description": "Magasin"
+    },
+    "products": "Produits",
+    "@products": {
+        "description": "Produits"
+    },
+    "product": "Produit",
+    "@product": {
+        "description": "Produit"
+    },
+    "in_stock": "En stock",
+    "@in_stock": {
+        "description": "En stock"
+    },
+    "out_of_stock": "En rupture de stock",
+    "@out_of_stock": {
+        "description": "En rupture de stock"
+    },
+    "add_to_cart": "Ajouter au panier",
+    "@add_to_cart": {
+        "description": "Ajouter au panier"
+    },
+    "no_content": "Pas de contenu",
+    "@no_content": {
+        "description": "Pas de contenu"
+    },
+    "no_products_found": "Aucun produits trouvés",
+    "@no_products_found": {
+        "description": "Aucun produits trouvés"
+    },
+    "no_shops_found": "Aucun magasins trouvés",
+    "@no_shops_found": {
+        "description": "Aucun magasins trouvés"
+    },
+    "no_invoices_found": "Aucune facture trouvée",
+    "@no_invoices_found": {
+        "description": "Aucune facture trouvée"
+    },
+    "empty_cart": "Panier vide",
+    "@empty_cart": {
+        "description": "Panier vide"
+    },
+    "remove_item": "Supprimer",
+    "@remove_item": {
+        "description": "Supprimer"
+    },
+    "subtotal": "Sous-total",
+    "@subtotal": {
+        "description": "Sous-total"
+    },
+    "delivery_fee": "Livraison",
+    "@delivery_fee": {
+        "description": "Livraison"
+    },
+    "free_delivery": "Gratuit",
+    "@free_delivery": {
+        "description": "Gratuit"
+    },
+    "validate_cart": "Valider le panier",
+    "@validate_cart": {
+        "description": "Valider le panier"
+    },
+    "quantity": "Quantité",
+    "@quantity": {
+        "description": "Quantité"
+    },
+    "price": "Prix",
+    "@price": {
+        "description": "Prix"
     }
 }

@@ -92,7 +92,7 @@ class DioClient {
   }
 
   // DELETE METHOD
-  Future<dynamic> delete(
+  Future<Response> delete(
     String url, {
     data,
     Map<String, dynamic>? queryParameters,
@@ -107,7 +107,7 @@ class DioClient {
         options: options,
         cancelToken: cancelToken,
       );
-      return response.data;
+      return response;
     } on DioException {
       rethrow;
     }

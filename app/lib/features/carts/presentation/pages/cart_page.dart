@@ -1,8 +1,10 @@
-import 'package:app/features/carts/domain/entities/cart_entity.dart';
-import 'package:app/features/carts/domain/repositories/cart_repository.dart';
+import 'package:app/features/cart_products/presentation/widgets/cart_product_card_widget.dart';
+import 'package:app/features/payment/presentation/pages/payment_page.dart';
 import 'package:flutter/material.dart';
-import 'package:app/service_locator.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:app/features/carts/presentation/blocs/cart_cubit.dart';
+import 'package:app/features/carts/presentation/blocs/cart_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -12,91 +14,105 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-
-  var cart;
   @override
   void initState() {
     super.initState();
-    _loadCartData();
-  }
-
-  Future<void> _loadCartData() async {
-    final cartData = await sl<CartRepository>().getMyCart();
-
-    print('I BET YOU THINK ABOUT ME YES I BET YOU THINK ABOUT ME');
-    print(cartData);
-    setState(() {
-      // cart = cartData;
-
-      cartData.fold(
-        (failure) {
-          return const Center(child: Text('Failed to load cart'));
-        },
-        (cartModel) {
-          cart = cartModel;
-        }
-      );
-      print('YOU GREW UP IN A SILVER SPOON GATED COMMUNITY');
-
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    
-      return Scaffold(
-        body: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 41),
-              child:
-              cart == null ? 
-              const Center(child: CircularProgressIndicator()) : 
-              Text('PANIER (${cart.products.length} articles)')
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CartCubit()..fetchCart(),
+        ),
+      ],
+      child: Scaffold(
+        body: BlocBuilder<CartCubit, CartState>(
+          builder: (context, state) {
+            if (state is CartLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is CartLoaded) {
+              final cart = state.cart;
+              final cartProducts = cart.products;
 
-            ),
-            for (var product in cart.products) ...[
-              Row(
+              return Column(
                 children: [
-                  Image.network(product.picture, width: 200, height: 200),
-                  SizedBox(
-                    width: 211,
-                    height: 200,
+                  Container(
+                    margin: const EdgeInsets.only(
+                        left: 10, right: 10, top: 10, bottom: 10),
+                    child: Text(
+                        '${AppLocalizations.of(context)!.cart.toUpperCase()} (${cart.products?.length} ${AppLocalizations.of(context)!.products})'),
+                  ),
+                  if (cartProducts != null)
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: cartProducts.length,
+                        itemBuilder: (context, index) {
+                          var product = cartProducts[index];
+                          return CartProductCardWidget(
+                            cartProduct: product,
+                            isModifiable: true,
+                          );
+                        },
+                      ),
+                    ),
+                  Container(
+                    width: double.infinity,
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, top: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(product.name),
-                            Text(product.brand),
-                            if (product.category != '')
-                              Text(product.category),
-                            for (var info in product.nutritionalInfo)
-                              Text(info),
-                          ]
+                            Text('${AppLocalizations.of(context)!.subtotal}: '),
+                            Text('${cart.total} €'),
+                          ],
                         ),
-                        TextButton(
-                          onPressed: () {
-                            print('TODO: api call to remove item from cart');
-                          }, 
-                          style: TextButton.styleFrom(
-                            foregroundColor: Colors.black,
-                            padding: EdgeInsets.zero
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                '${AppLocalizations.of(context)!.delivery_fee}: '),
+                            Text(AppLocalizations.of(context)!.free_delivery)
+                          ],
+                        ),
+                        const SizedBox(height: 21),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('TOTAL: '),
+                            Text('${cart.total} €')
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PaymentPage(),
                           ),
-                          child: const Text('Remove item'),
-                        ),
-  
-                      ]
-                    )
-                  )
-                ]
-              ),
-              const SizedBox(height: 41)
-            ]
-          ]
-        )
-      );
+                        );
+                      },
+                      child: Text(AppLocalizations.of(context)!.validate_cart),
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return const Text('Cart Empty');
+            }
+          },
+        ),
+      ),
+    );
   }
 }

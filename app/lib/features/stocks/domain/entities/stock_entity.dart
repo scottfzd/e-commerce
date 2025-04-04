@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
 import 'package:equatable/equatable.dart';
 
 class StockEntity extends Equatable {
   final int? id;
   final int? quantity;
-  final Float? price;
+  final double? price;
 
   const StockEntity({
     this.id,

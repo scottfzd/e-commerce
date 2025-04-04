@@ -1,16 +1,18 @@
+import 'package:app/features/cart_products/domain/entities/cart_product_entity.dart';
 import 'package:equatable/equatable.dart';
-import 'package:app/features/products/domain/entities/product_entity.dart';
 
 class CartEntity extends Equatable {
   final int? id;
   final int? userId;
+  final int? shopId;
   final double? total;
   final String? status;
-  final List<ProductEntity>? products; 
+  final List<CartProductEntity>? products; 
 
   const CartEntity({
     this.id,
     this.userId,
+    this.shopId,
     this.status,
     this.total,
     this.products
@@ -20,6 +22,7 @@ class CartEntity extends Equatable {
   List<Object?> get props => [
         id,
         userId,
+        shopId,
         total,
         status,
         products

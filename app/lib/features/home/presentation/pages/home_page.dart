@@ -1,8 +1,14 @@
+import 'package:app/features/carts/presentation/blocs/cart_cubit.dart';
 import 'package:app/features/carts/presentation/pages/cart_page.dart';
 import 'package:app/features/invoices/presentation/blocs/invoices_cubit.dart';
 import 'package:app/features/invoices/presentation/pages/invoices_page.dart';
+import 'package:app/features/products/presentation/blocs/products_cubit.dart';
 import 'package:app/features/profile/presentation/pages/profile_page.dart';
-import 'package:app/features/scanner/presentation/pages/scanner_page.dart';
+import 'package:app/features/products/presentation/pages/products_page.dart';
+import 'package:app/features/shops/presentation/blocs/shops_cubit.dart';
+import 'package:app/features/shops/presentation/blocs/shops_state.dart';
+import 'package:app/features/shops/presentation/pages/shops_page.dart';
+import 'package:app/shared/bloc/button_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/home/presentation/blocs/bottom_navigation_bloc.dart';
@@ -17,8 +23,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = const [
-    ScannerPage(),
+    ProductsPage(),
     CartPage(),
+    ShopsPage(),
     InvoicesPage(),
     ProfilePage(),
   ];
@@ -27,16 +34,37 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<BottomNavigationBloc>(
+        BlocProvider(
           create: (context) => BottomNavigationBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ShopsCubit()..fetchShops(),
         ),
         BlocProvider(
           create: (context) => InvoicesCubit()..fetchInvoices(),
         ),
+        BlocProvider(
+          create: (context) => ProductsCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CartCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ButtonCubit(),
+        ),
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.home),
+          title: BlocBuilder<ShopsCubit, ShopsState>(
+            builder: (context, state) {
+              if (state is ShopSelected) {
+                return Text(state.selectedShop.name ??
+                    AppLocalizations.of(context)!.home);
+              } else {
+                return Text(AppLocalizations.of(context)!.home);
+              }
+            },
+          ),
         ),
         body: BlocBuilder<BottomNavigationBloc, int>(
           builder: (context, currentIndex) {
@@ -47,20 +75,25 @@ class _HomePageState extends State<HomePage> {
           builder: (context, currentIndex) {
             return BottomNavigationBar(
               currentIndex: currentIndex,
-              unselectedItemColor: Theme.of(context).primaryColorLight,
-              selectedItemColor: Theme.of(context).primaryColor,
+              selectedItemColor: Theme.of(context).colorScheme.primary,
+              unselectedItemColor: Theme.of(context).colorScheme.secondary,
+              showUnselectedLabels: true,
               onTap: (index) {
                 final event = BottomNavigationEvent.values[index];
                 context.read<BottomNavigationBloc>().add(event);
               },
               items: [
                 BottomNavigationBarItem(
-                  icon: const Icon(Icons.qr_code_scanner),
-                  label: AppLocalizations.of(context)!.scanner,
+                  icon: const Icon(Icons.shopping_bag),
+                  label: AppLocalizations.of(context)!.products,
                 ),
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.shopping_cart),
                   label: AppLocalizations.of(context)!.cart,
+                ),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.store),
+                  label: AppLocalizations.of(context)!.shops,
                 ),
                 BottomNavigationBarItem(
                   icon: const Icon(Icons.receipt),

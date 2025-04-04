@@ -16,4 +16,5 @@ class Constants {
   static final String shopURL = '$baseURL/shops';
   static final String stockURL = '$baseURL/stocks';
   static final String userURL = '$baseURL/users';
+  static final String paymentURL = '$baseURL/payment';
 }
