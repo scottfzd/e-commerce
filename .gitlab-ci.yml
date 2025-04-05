@@ -3,6 +3,9 @@ stages:
   - build
   - deploy
 
+default:
+  git:
+    strategy: clone
 
 test:
   stage: test
