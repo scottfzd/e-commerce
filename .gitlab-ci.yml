@@ -23,7 +23,6 @@ build:
   before_script:
     # - flutter --version  # Verify Flutter version
     - cd app         # Change to the app directory
-
     - flutter pub get    # Fetch dependencies
   script:
     - flutter build apk  # Build APK
