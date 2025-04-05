@@ -19,13 +19,12 @@ test:
 
 build:
   stage: build
-  image: cirrusci/flutter:stable
+  image: ghcr.io/cirruslabs/flutter:3.24.5
   before_script:
-    - flutter --version  # Verify Flutter version
+    # - flutter --version  # Verify Flutter version
     - cd app         # Change to the app directory
     - flutter pub get    # Fetch dependencies
   script:
-    - cd app             # Change to the app directory
     - flutter build apk  # Build APK
     - cd ..              # Return to the root directory
     - cp ./app/build/app/outputs/flutter-apk/app-release.apk ./apk/app-release.apk  # Copy APK to a common location
