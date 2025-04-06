@@ -23,7 +23,7 @@ build:
     # - flutter --version  # Verify Flutter version
     - cd app         # Change to the app directory
     - flutter pub get    # Fetch dependencies
-    - echo "BASE_URL=$BASE_URL" > .env 
+    - echo "BASE_URL=$BASE_URL" > .env  # Set environment variable for the build
 
   script:
     - flutter build apk  # Build APK
