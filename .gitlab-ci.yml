@@ -14,7 +14,7 @@ test:
     - echo "BASE_URL=$BASE_URL" > .env 
     - flutter pub get
   script:
-    - flutter test
+    - flutter test --no-pub 
 
 build:
   stage: build
