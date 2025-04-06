@@ -10,7 +10,6 @@ test:
   stage: test
   image: ghcr.io/cirruslabs/flutter:3.24.5
   before_script:
-    - flutter --version
     - cd app
     - echo "BASE_URL=$BASE_URL" > .env 
     - flutter pub get
