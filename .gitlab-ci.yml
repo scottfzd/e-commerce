@@ -3,8 +3,8 @@ stages:
   - build
   - deploy
 
-# variables:
-#   GIT_STRATEGY: clone
+variables:
+  GIT_STRATEGY: clone
 
 test:
   stage: test
